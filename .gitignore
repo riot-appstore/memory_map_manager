@@ -1,0 +1,5 @@
+output/
+saved_setups/Archive
+
+# Python compiled files
+*.pyc
