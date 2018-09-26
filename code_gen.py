@@ -17,7 +17,7 @@ def _parse_filename(f_arg, d_arg, name_contains):
             if file.endswith(".json"):
                 if name_contains in file:
                     return file
-    return f_arg
+    return None
 
 
 def main():
@@ -73,6 +73,8 @@ def main():
 
     if not os.path.exists(args.input_dir):
         os.makedirs(args.input_dir)
+    if import_mm_f is None:
+        import_mm_f = import_td_f.replace("typedef", "mem_map")
     with open(args.input_dir + import_mm_f, 'w') as outfile:
         json.dump(mem_map, outfile, indent=4, sort_keys=True)
 
