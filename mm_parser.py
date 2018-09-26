@@ -75,8 +75,8 @@ def _element_to_bitfield_record(name, element):
         bitfield["name"] = copy.deepcopy(name)
         name.pop()
         bitfield["bits"] = bit_info["bits"]
-        offset += bit_info["bits"]
         bitfield["bit_offset"] = offset
+        offset += bit_info["bits"]
         bitfield["is_bitfield"] = True
         bitfields.append(bitfield)
     return bitfields
