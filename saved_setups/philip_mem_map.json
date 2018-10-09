@@ -3,8 +3,9 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Unique ID of the device",
+        "flag": "DEVICE_SPECIFIC",
         "is_bitfield": false,
         "name": [
             "sys",
@@ -20,8 +21,9 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "Firmware revision",
+        "invalid": 0,
         "is_bitfield": false,
         "name": [
             "sys",
@@ -36,7 +38,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The seconds in decimal",
         "is_bitfield": false,
         "name": [
@@ -53,7 +55,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The minutes in decimal",
         "is_bitfield": false,
         "name": [
@@ -70,7 +72,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The hours in decimal",
         "is_bitfield": false,
         "name": [
@@ -87,7 +89,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The months in decimal",
         "is_bitfield": false,
         "name": [
@@ -104,7 +106,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The week in decimal",
         "is_bitfield": false,
         "name": [
@@ -121,7 +123,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The month in decimal",
         "is_bitfield": false,
         "name": [
@@ -138,7 +140,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The last two digits of the year in decimal (20xx)",
         "is_bitfield": false,
         "name": [
@@ -155,7 +157,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -170,10 +172,10 @@
         "type": "uint8_t"
     },
     {
-        "access": 1,
+        "access": 0,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": "0x42A5",
         "description": "A constant number that should always be the same",
         "is_bitfield": false,
         "name": [
@@ -189,8 +191,8 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
-        "description": "Specific modes for I2C",
+        "default": null,
+        "description": "Control register for device",
         "is_bitfield": false,
         "name": [
             "sys",
@@ -203,9 +205,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 1,
+        "bit_offset": 0,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "resets the DUT",
         "is_bitfield": true,
         "name": [
@@ -222,7 +224,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -239,7 +241,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Specific modes for I2C",
         "is_bitfield": false,
         "name": [
@@ -253,9 +255,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 1,
+        "bit_offset": 0,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "10 bit address enable",
         "is_bitfield": true,
         "name": [
@@ -270,10 +272,10 @@
     },
     {
         "access": 1,
-        "bit_offset": 2,
+        "bit_offset": 1,
         "bits": 1,
-        "default": 0,
-        "description": "general call enable",
+        "default": null,
+        "description": "General call enable",
         "is_bitfield": true,
         "name": [
             "i2c",
@@ -287,10 +289,10 @@
     },
     {
         "access": 1,
-        "bit_offset": 3,
+        "bit_offset": 2,
         "bits": 1,
-        "default": 0,
-        "description": "disable for clk stretch",
+        "default": null,
+        "description": "Disable for clk stretch",
         "is_bitfield": true,
         "name": [
             "i2c",
@@ -304,9 +306,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 4,
+        "bit_offset": 3,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "16 bit register access mode",
         "is_bitfield": true,
         "name": [
@@ -321,9 +323,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 5,
+        "bit_offset": 4,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Forces a data nack",
         "is_bitfield": true,
         "name": [
@@ -340,7 +342,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Specific modes for I2C",
         "is_bitfield": false,
         "name": [
@@ -354,9 +356,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 1,
+        "bit_offset": 0,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Overrun/Underrun: Request for new byte when not ready",
         "is_bitfield": true,
         "name": [
@@ -371,9 +373,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 2,
+        "bit_offset": 1,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Acknowledge failure",
         "is_bitfield": true,
         "name": [
@@ -388,9 +390,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 3,
+        "bit_offset": 2,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Bus error:  Non-valid position during a byte transfer",
         "is_bitfield": true,
         "name": [
@@ -405,9 +407,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 4,
+        "bit_offset": 3,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "General call address recieved",
         "is_bitfield": true,
         "name": [
@@ -422,9 +424,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 5,
+        "bit_offset": 4,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Forces a data nack",
         "is_bitfield": true,
         "name": [
@@ -439,9 +441,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 6,
+        "bit_offset": 5,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Repeated start detected",
         "is_bitfield": true,
         "name": [
@@ -458,8 +460,8 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
-        "description": "delay in us for clock stretch",
+        "default": null,
+        "description": "Delay in us for clock stretch",
         "is_bitfield": false,
         "name": [
             "i2c",
@@ -476,7 +478,10 @@
         "bits": 16,
         "default": 85,
         "description": "Primary slave address",
+        "invalid": 125,
         "is_bitfield": false,
+        "max": 124,
+        "min": 8,
         "name": [
             "i2c",
             "slave_addr_1"
@@ -490,9 +495,12 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 64,
+        "default": 66,
         "description": "Secondary slave address",
+        "invalid": 126,
         "is_bitfield": false,
+        "max": 124,
+        "min": 8,
         "name": [
             "i2c",
             "slave_addr_2"
@@ -506,8 +514,8 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
-        "description": "last read frame byte count",
+        "default": null,
+        "description": "Last read frame byte count",
         "is_bitfield": false,
         "name": [
             "i2c",
@@ -522,8 +530,8 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
-        "description": "last write frame byte count",
+        "default": null,
+        "description": "Last write frame byte count",
         "is_bitfield": false,
         "name": [
             "i2c",
@@ -538,7 +546,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -555,7 +563,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -571,7 +579,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -587,7 +595,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -604,7 +612,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Test mode",
         "is_bitfield": false,
         "name": [
@@ -620,7 +628,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "Baudrate",
         "is_bitfield": false,
         "name": [
@@ -636,7 +644,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
+        "default": null,
         "description": "Number of received bytes",
         "is_bitfield": false,
         "name": [
@@ -652,7 +660,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
+        "default": null,
         "description": "Number of transmitted bytes",
         "is_bitfield": false,
         "name": [
@@ -668,7 +676,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "UART control register",
         "is_bitfield": false,
         "name": [
@@ -682,9 +690,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 1,
+        "bit_offset": 0,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "Number of stop bits",
         "is_bitfield": true,
         "name": [
@@ -699,9 +707,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 3,
+        "bit_offset": 1,
         "bits": 2,
-        "default": 0,
+        "default": null,
         "description": "Parity",
         "is_bitfield": true,
         "name": [
@@ -716,9 +724,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 4,
+        "bit_offset": 3,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "RTS pin state",
         "is_bitfield": true,
         "name": [
@@ -735,7 +743,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "UART status register",
         "is_bitfield": false,
         "name": [
@@ -749,9 +757,9 @@
     },
     {
         "access": 1,
-        "bit_offset": 1,
+        "bit_offset": 0,
         "bits": 1,
-        "default": 0,
+        "default": null,
         "description": "CTS pin state",
         "is_bitfield": true,
         "name": [
@@ -768,7 +776,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -785,7 +793,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The seconds in decimal",
         "is_bitfield": false,
         "name": [
@@ -801,7 +809,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The minutes in decimal",
         "is_bitfield": false,
         "name": [
@@ -817,7 +825,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The hours in decimal",
         "is_bitfield": false,
         "name": [
@@ -833,7 +841,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The months in decimal",
         "is_bitfield": false,
         "name": [
@@ -849,7 +857,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The week in decimal",
         "is_bitfield": false,
         "name": [
@@ -865,7 +873,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The month in decimal",
         "is_bitfield": false,
         "name": [
@@ -881,7 +889,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "The last two digits of the year in decimal (20xx)",
         "is_bitfield": false,
         "name": [
@@ -897,7 +905,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -914,7 +922,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -931,7 +939,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -948,7 +956,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -965,7 +973,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -982,7 +990,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -1000,7 +1008,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1017,7 +1025,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1034,7 +1042,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1051,7 +1059,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1068,7 +1076,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -1086,7 +1094,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1102,7 +1110,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1118,7 +1126,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1134,7 +1142,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1150,7 +1158,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [
@@ -1167,7 +1175,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1183,7 +1191,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 16,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1199,7 +1207,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1215,7 +1223,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1231,7 +1239,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1247,7 +1255,7 @@
         "access": 1,
         "bit_offset": 0,
         "bits": 32,
-        "default": 0,
+        "default": null,
         "description": "",
         "is_bitfield": false,
         "name": [
@@ -1263,8 +1271,8 @@
         "access": 3,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
-        "description": "Writeable registers for user testing",
+        "default": null,
+        "description": "Writable registers for user testing",
         "is_bitfield": false,
         "name": [
             "user_reg",
@@ -1279,7 +1287,7 @@
         "access": 0,
         "bit_offset": 0,
         "bits": 8,
-        "default": 0,
+        "default": null,
         "description": "Reserved bytes",
         "is_bitfield": false,
         "name": [

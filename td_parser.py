@@ -11,7 +11,7 @@ def _fill_res_element(typedef, total_byte):
            'size': 1,
            'description': 'Reserved bytes',
            'access': 0x00,
-           'default': 0x00}
+           'default': None}
     typedef["elements"].append(res)
 
 
@@ -79,7 +79,7 @@ def parse_basic_typedefs(typedefs):
     cp_typedefs = deepcopy(typedefs)
     _update_typedef_sizes(cp_typedefs)
     _fill_empty_typedefs(cp_typedefs, 'description', '', bitfield=True)
-    _fill_empty_typedefs(cp_typedefs, 'default', 0)
+    _fill_empty_typedefs(cp_typedefs, 'default', None)
     _fill_empty_typedefs(cp_typedefs, 'access', 1, False)
     return cp_typedefs
 

@@ -3,18 +3,38 @@
 from gen_helpers import to_camel_case, to_underscore_case
 
 
+def _find_unique_keys(mem_map):
+    field_names = []
+    for record in mem_map:
+        for field_name in record.keys():
+            if field_name not in field_names:
+                field_names.append(field_name)
+    field_names = sorted(field_names)
+    field_names.insert(0, field_names.pop(field_names.index('description')))
+    field_names.insert(0, field_names.pop(field_names.index('total_size')))
+    field_names.insert(0, field_names.pop(field_names.index('offset')))
+    field_names.insert(0, field_names.pop(field_names.index('name')))
+    return field_names
+
+
 def parse_mem_map_to_csv(mem_map, name_delimiter='.'):
     """Parses a memory map to a csv table string."""
-    csv_str = ','.join(sorted(mem_map[0].keys()))
+    fields = _find_unique_keys(mem_map)
+    csv_str = ','.join(fields)
     for record in mem_map:
         csv_str += '\n'
         name = name_delimiter.join(record['name'])
-        for key, value in sorted(record.items()):
-            if key is 'name':
+        for field in fields:
+            if field not in record:
+                record[field] = ''
+            if record[field] is None:
+                record[field] = ''
+            if field == 'name':
                 csv_str += name
             else:
-                csv_str += str(value).replace(',', '","')
+                csv_str += str(record[field]).replace(',', '","')
             csv_str += ','
+        csv_str = csv_str[:-1]
     return csv_str
 
 

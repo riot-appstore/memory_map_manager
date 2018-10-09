@@ -70,6 +70,8 @@ def main():
         with open(args.input_dir + import_mm_f) as mm_f:
             imported_mem_map = json.load(mm_f)
         import_mem_map_values(mem_map, imported_mem_map)
+    else:
+        import_mm_f = 'mem_map.json'
 
     if not os.path.exists(args.input_dir):
         os.makedirs(args.input_dir)

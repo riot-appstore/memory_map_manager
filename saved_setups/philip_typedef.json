@@ -1,8 +1,8 @@
 {
   "metadata" : {
-    "name": "bpt_mem_map",
+    "name": "philip_mem_map",
     "author": "Kevin Weiss",
-    "revision": "1.00.02"
+    "revision": "1.00.04"
   },
   "typedefs" :[
     {
@@ -56,22 +56,26 @@
           "name" : "sn",
           "type" : "uint8_t",
           "array_size" : 12,
-          "description" : "Unique ID of the device"
+          "description" : "Unique ID of the device",
+          "access" : 0
         },
         {
           "name" : "fw_rev",
           "type" : "uint32_t",
-          "description" : "Firmware revision"
+          "description" : "Firmware revision",
+          "access" : 0
         },
         {
           "name" : "build_time",
           "type" : "timestamp_t",
-          "description" : "time of build"
+          "description" : "time of build",
+          "access" : 0
         },
         {
           "name" : "device_num",
           "type" : "uint32_t",
-          "description" : "A constant number that should always be the same"
+          "description" : "A constant number that should always be the same",
+          "access" : 0
         },
         {
           "name" : "cr",

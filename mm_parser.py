@@ -64,42 +64,39 @@ def _element_to_bitfield_record(name, element):
     offset = 0
     for bit_info in element["bitfield"]:
         bitfield = {}
-        bitfield["type"] = element["bit_type"]
-        bitfield["size"] = element["size"]
+        bitfield = copy.deepcopy(element)
+        bitfield["type"] = bitfield.pop("bit_type")
         bitfield["total_size"] = element["size"]
-        bitfield["offset"] = element["offset"]
+        bitfield["is_bitfield"] = True
+        bitfield["bits"] = bit_info["bits"]
         bitfield["description"] = bit_info["description"]
-        bitfield["access"] = element["access"]
-        bitfield["default"] = element["default"]
+        bitfield["bit_offset"] = offset
+        bitfield.pop('bitfield', None)
         name.append(bit_info["name"])
         bitfield["name"] = copy.deepcopy(name)
         name.pop()
-        bitfield["bits"] = bit_info["bits"]
-        bitfield["bit_offset"] = offset
         offset += bit_info["bits"]
-        bitfield["is_bitfield"] = True
         bitfields.append(bitfield)
     return bitfields
 
 
 def _element_to_mem_map_record(name, element, mem_map):
-    mem_map.append({})
+    mem_map.append(copy.deepcopy(element))
     name.append(element["name"])
     if "array_size" in element:
         mem_map[-1]["total_size"] = element["size"] * element["array_size"]
         name.append("%d" % element["array_size"])
     else:
         mem_map[-1]["total_size"] = element["size"]
-    mem_map[-1]["size"] = element["size"]
+    mem_map[-1].pop('array_size', None)
+    mem_map[-1].pop('bitfield', None)
+    mem_map[-1].pop('bit_type', None)
+
     mem_map[-1]["name"] = copy.deepcopy(name)
-    mem_map[-1]["type"] = element["type"]
-    mem_map[-1]["offset"] = element["offset"]
-    mem_map[-1]["description"] = element["description"]
-    mem_map[-1]["access"] = element["access"]
-    mem_map[-1]["default"] = element["default"]
     mem_map[-1]["bits"] = element["size"] * 8
     mem_map[-1]["bit_offset"] = 0
     mem_map[-1]["is_bitfield"] = False
+
     if 'bitfield' in element:
         mem_map.extend(_element_to_bitfield_record(name, element))
     if "array_size" in element:
@@ -138,15 +135,17 @@ def parse_typedefs_to_mem_map(typedefs, mem_map=None):
 
 
 def import_mem_map_values(mem_map, saved_mem_map,
-                          type_names=None):
+                          generated_fields=None):
     """Imports type_name values from saved memory maps"""
-    if type_names is None:
-        type_names = ['access', 'default', 'description']
+    if generated_fields is None:
+        generated_fields = ['bit_offset', 'bits', 'is_bitfield', 'bit_offset',
+                            'name', 'offset', 'size', 'total_size', 'type']
     for saved_record in saved_mem_map:
         for record in mem_map:
             if record['name'] == saved_record['name']:
-                for type_name in type_names:
-                    record[type_name] = saved_record[type_name]
+                for field_name in saved_record.keys():
+                    if field_name not in generated_fields:
+                        record[field_name] = saved_record[field_name]
 
 
 def main():
