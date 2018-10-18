@@ -10,6 +10,7 @@ def _find_unique_keys(mem_map):
             if field_name not in field_names:
                 field_names.append(field_name)
     field_names = sorted(field_names)
+    # Ordered but starts with name, offset, total_size, description
     field_names.insert(0, field_names.pop(field_names.index('description')))
     field_names.insert(0, field_names.pop(field_names.index('total_size')))
     field_names.insert(0, field_names.pop(field_names.index('offset')))
