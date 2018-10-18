@@ -1,0 +1,268 @@
+{
+    "$schema":"http://json-schema.org/draft-07/schema#",
+    "$id":"url_to_schema",
+    "title":"Typedef Generation",
+    "description":"Schema for typedef generation",
+    "definitions":{
+        "common_params":{
+            "properties":{
+                "access":{
+                    "type":"integer",
+                    "description":"Allows write access to register, example 0(0b00)=No access, 1(0b01)=basic access only, 2(0b10)=advanced access only, 3(0b11)=both basic and advanced",
+                    "minimum":0,
+                    "maximum":255
+                },
+                "min":{
+                    "type":[
+                        "number",
+                        "string"
+                    ],
+                    "description":"Minimum value of the element",
+                    "pattern":"^0[xX][0-9a-fA-F]+$"
+                },
+                "max":{
+                    "type":[
+                        "number",
+                        "string"
+                    ],
+                    "description":"Maximum value of the element",
+                    "pattern":"^0[xX][0-9a-fA-F]+$"
+                },
+                "default":{
+                    "type":[
+                        "number",
+                        "string"
+                    ],
+                    "description":"The default value of the element",
+                    "pattern":"^0[xX][0-9a-fA-F]+$"
+                },
+                "invalid":{
+                    "type":[
+                        "number",
+                        "string"
+                    ],
+                    "description":"An invalid number of the element used for negative testing",
+                    "pattern":"^0[xX][0-9a-fA-F]+$"
+                },
+                "flag":{
+                    "type":"string",
+                    "description":"Flags used for indicating things for the interface and tests"
+                }
+            }
+        }
+    },
+    "properties":{
+        "bitfields":{
+            "type":"array",
+            "description":"Bitfields to be generated",
+            "items":{
+                "properties":{
+                    "type_name":{
+                        "type":"string",
+                        "description":"The typedef name for the bitfield",
+                        "pattern":"^[a-z]+[0-9a-z_]*_t$"
+                    },
+                    "type":{
+                        "type":"string",
+                        "description":"The type of primitive to fit the bits in",
+                        "pattern":"^[a-z]+[0-9a-z_]*_t$"
+                    },
+                    "elements":{
+                        "type":"array",
+                        "description":"List of the bit elements",
+                        "minItems":1,
+                        "items":{
+                            "properties":{
+                                "name":{
+                                    "type":"string",
+                                    "description":"The variable name",
+                                    "pattern":"^[a-zA-Z]+[0-9a-z_A-Z]*$"
+                                },
+                                "bits":{
+                                    "type":"integer",
+                                    "minimum:":1
+                                }
+                            },
+                            "required":[
+                                "name",
+                                "bits"
+                            ]
+                        }
+                    }
+                },
+                "required":[
+                    "type_name",
+                    "elements"
+                ]
+            }
+        },
+        "typedefs":{
+            "type":"array",
+            "description":"Typedefs to generate",
+            "items":{
+                "allOf":[
+                    {
+                        "$ref":"#/definitions/common_params"
+                    },
+                    {
+                        "properties":{
+                            "type_name":{
+                                "type":"string",
+                                "description":"The name of the typedef struct",
+                                "minItems":1,
+                                "pattern":"^[a-z]+[0-9a-z_]*_t$"
+                            },
+                            "elements":{
+                                "type":"array",
+                                "description":"List of the elements in the typedef struct",
+                                "minItems":1,
+                                "items":{
+                                    "allOf":[
+                                        {
+                                            "$ref":"#/definitions/common_params"
+                                        },
+                                        {
+                                            "properties":{
+                                                "name":{
+                                                    "type":"string",
+                                                    "description":"The variable name",
+                                                    "pattern":"^[a-zA-Z]+[0-9a-z_A-Z]*$"
+                                                },
+                                                "type":{
+                                                    "type":"string",
+                                                    "description":"Either a primitive type or an already defined type",
+                                                    "pattern":"^[a-zA-Z]+[0-9a-z_A-Z]*$"
+                                                },
+                                                "array_size":{
+                                                    "type":"integer",
+                                                    "description":"Amount of elements in the array",
+                                                    "minimum":1
+                                                }
+                                            },
+                                            "required":[
+                                                "name",
+                                                "type"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            "generate_mem_map":{
+                                "type":"boolean",
+                                "description":"Indicates if the memory map should from the typedef struct"
+                            },
+                            "size":{
+                                "type":"integer",
+                                "description":"Reserved amount of bytes for the struct",
+                                "minimum":1
+                            }
+                        },
+                        "required":[
+                            "type_name",
+                            "elements"
+                        ]
+                    }
+                ]
+            }
+        },
+        "mem_map":{
+            "type":"array",
+            "description":"Memory map of the expanded struct",
+            "items":{
+                "allOf":[
+                    {
+                        "$ref":"#/definitions/common_params"
+                    },
+                    {
+                        "properties":{
+                            "bit_offset":{
+                                "type":"integer",
+                                "description":"The number of bits in the bitfield",
+                                "minimum":0,
+                                "maximum":32
+                            },
+                            "bits":{
+                                "type":"integer",
+                                "description":"The amount of bits reserved for the variable",
+                                "minimum":0,
+                                "maximum":32
+                            },
+                            "is_bitfield":{
+                                "type":"boolean",
+                                "description":"If the variable is part of a bitfield"
+                            },
+                            "offset":{
+                                "type":"integer",
+                                "description":"Byte offset in the memory map",
+                                "minimum":0
+                            },
+                            "size":{
+                                "type":"integer",
+                                "description":"Size in bytes of the type of the variable",
+                                "minimum":0
+                            },
+                            "total_size":{
+                                "type":"integer",
+                                "description":"Total size in bytes of the variable or array",
+                                "minimum":0
+                            },
+                            "type":{
+                                "type":"string",
+                                "description":"Type of the variable",
+                                "pattern":"^[a-zA-Z]+[0-9a-z_A-Z]*$"
+                            },
+                            "name":{
+                                "type":"array",
+                                "description":"List of the elements in the typedef struct",
+                                "minItems":1,
+                                "items":{
+                                    "type":"string"
+                                }
+                            }
+                        },
+                        "required":[
+                            "name",
+                            "offset",
+                            "size",
+                            "total_size",
+                            "is_bitfield"
+                        ]
+                    }
+                ]
+            }
+        },
+        "metadata":{
+            "properties":{
+                "app_name":{
+                    "type":"string",
+                    "description":"Name of the application",
+                    "pattern":"^[a-zA-Z]+[0-9a-z_A-Z]*$"
+                },
+                "author":{
+                    "type":"string",
+                    "description":"Author name",
+                    "pattern":"^[a-zA-Z]+[0-9a-z A-Z]*$"
+                },
+                "email":{
+                    "type":"string",
+                    "description":"Contact email address",
+                    "pattern":"^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$"
+                },
+                "version":{
+                    "type":"string",
+                    "description":"Name of the application",
+                    "pattern":"^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$"
+                }
+            },
+            "required":[
+                "app_name",
+                "author",
+                "version"
+            ]
+        }
+    },
+    "required":[
+        "typedefs",
+        "metadata"
+    ]
+}
