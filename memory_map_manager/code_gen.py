@@ -12,7 +12,7 @@ from gen_helpers import to_underscore_case
 
 
 def _parse_filename(f_arg, d_arg, name_contains):
-    if f_arg is None:
+    if f_arg is not None:
         for file in os.listdir(os.path.join(os.path.dirname(__file__), d_arg)):
             if file.endswith(".json"):
                 if name_contains in file:
