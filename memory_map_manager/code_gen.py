@@ -12,7 +12,7 @@ from gen_helpers import to_underscore_case
 
 
 def _parse_filename(f_arg, d_arg, name_contains):
-    if f_arg is None:
+    if f_arg is not None:
         for file in os.listdir(os.path.join(os.path.dirname(__file__), d_arg)):
             if file.endswith(".json"):
                 if name_contains in file:
@@ -58,7 +58,7 @@ def main():
     import_td_f = _parse_filename(args.import_td_f, args.input_dir, "typedef")
     import_mm_f = _parse_filename(args.import_mm_f, args.input_dir, "mem_map")
 
-    with open(args.input_dir + import_td_f) as td_f:
+    with open(os.path.join(args.input_dir, import_td_f)) as td_f:
         json_data = json.load(td_f)
     typedefs = json_data['typedefs']
     metadata = json_data['metadata']
@@ -67,7 +67,7 @@ def main():
     mem_map = parse_typedefs_to_mem_map(typedefs)
 
     if import_mm_f is not None:
-        with open(args.input_dir + import_mm_f) as mm_f:
+        with open(os.path.join(args.input_dir, import_mm_f)) as mm_f:
             imported_mem_map = json.load(mm_f)
         import_mem_map_values(mem_map, imported_mem_map)
     else:
@@ -77,25 +77,26 @@ def main():
         os.makedirs(args.input_dir)
     if import_mm_f is None:
         import_mm_f = import_td_f.replace("typedef", "mem_map")
-    with open(args.input_dir + import_mm_f, 'w') as outfile:
+    with open(os.path.join(args.input_dir, import_mm_f), 'w') as outfile:
         json.dump(mem_map, outfile, indent=4, sort_keys=True)
 
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
 
-    with open(args.output_dir + args.csv_name, 'w') as outfile:
+    with open(os.path.join(args.output_dir, args.csv_name), 'w') as outfile:
         outfile.write(parse_mem_map_to_csv(mem_map))
 
-    with open(args.output_dir + args.access_name, 'w') as outfile:
+    with open(os.path.join(args.output_dir, args.access_name), 'w') as outfile:
         outfile.write(parse_mem_map_to_access_c(mem_map))
 
     if args.py_if_name is None:
         args.py_if_name = to_underscore_case(metadata['name'])
-    with open(args.output_dir + args.py_if_name + '.py', 'w') as outfile:
+    with open(os.path.join(args.output_dir, args.py_if_name + '.py'),
+              'w') as outfile:
         outfile.write(parse_mem_map_to_if(mem_map, args.py_if_name,
                                           args.if_parent))
 
-    with open(args.output_dir + args.td_h_name, 'w') as outfile:
+    with open(os.path.join(args.output_dir, args.td_h_name), 'w') as outfile:
         outfile.write(parse_typedefs_to_h(typedefs, metadata))
 
 
