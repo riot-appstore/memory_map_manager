@@ -1,35 +1,40 @@
 #!/usr/bin/env python3
+# Copyright (c) 2018 Kevin Weiss, for HAW Hamburg  <kevin.weiss@haw-hamburg.de>
+#
+# This file is subject to the terms and conditions of the MIT License. See the
+# file LICENSE in the top level directory for more details.
+# SPDX-License-Identifier:    MIT
 """Parses and manages memory maps from typedefs"""
-import copy
-from gen_helpers import PRIM_TYPES
+from copy import deepcopy
+from pprint import pformat
+from logging import debug, info
+from .gen_helpers import PRIM_TYPES
 
 
-def _copy_elements(typename, typedefs):
-    for typedef in typedefs:
-        if typename == typedef["name"]:
-            return {'elements': copy.deepcopy(typedef["elements"])}
+def _copy_elements(typename, config):
+    for typedef in config['typedefs']:
+        if typename == typedef["type_name"]:
+            return {'elements': deepcopy(typedef["elements"])}
+    for bitfield in config['bitfields']:
+        if typename == bitfield["type_name"]:
+            return {'elements': deepcopy(bitfield["elements"])}
     raise ValueError("Cannot find {}".format(typename))
 
 
-def _copy_typedef_elements(element, expanded_typedefs):
-    e_type = element["type"]
+def _copy_typedef_elements(element, config):
     if "array_size" in element:
-        a_size = element["array_size"]
-        element['array'] = [_copy_elements(e_type, expanded_typedefs)
-                            for i in range(a_size)]
+        array_size = element["array_size"]
+        element['array'] = [_copy_elements(element["type"],
+                                           config) for i in range(array_size)]
     else:
-        element.update(_copy_elements(e_type, expanded_typedefs))
+        element.update(_copy_elements(element["type"], config))
 
 
-def _expand_typedefs(typedefs):
-    expanded_typedefs = []
-    for typedef in typedefs:
+def _expand_typedefs(config):
+    for typedef in config["typedefs"]:
         for element in typedef["elements"]:
             if element["type"] not in PRIM_TYPES:
-                if "bitfield" not in element:
-                    _copy_typedef_elements(element, expanded_typedefs)
-        expanded_typedefs.append(typedef)
-    return expanded_typedefs
+                _copy_typedef_elements(element, config)
 
 
 def _update_offsets(elements, offset=0):
@@ -41,70 +46,41 @@ def _update_offsets(elements, offset=0):
             for array_val in element["array"]:
                 offset = _update_offsets(array_val["elements"], offset)
         elif "array_size" in element:
-            offset += element["size"]*element["array_size"]
-        else:
-            offset += element["size"]
+            offset += element["type_size"]*element["array_size"]
+        elif "type_size" in element:
+            offset += element["type_size"]
     return offset
 
 
-def _expand_mem_map(typedefs, mem_map=None):
-
-    exp_typedefs = _expand_typedefs(typedefs)
-    if mem_map is None:
-        mem_map = exp_typedefs[-1]
-    else:
-        mem_map = next(itm for itm in exp_typedefs if itm["name"] == "mem_map")
-    _update_offsets(mem_map['elements'])
-    return mem_map
-
-
-def _element_to_bitfield_record(name, element):
-
-    bitfields = []
-    offset = 0
-    for bit_info in element["bitfield"]:
-        bitfield = {}
-        bitfield = copy.deepcopy(element)
-        bitfield["type"] = bitfield.pop("bit_type")
-        bitfield["total_size"] = element["size"]
-        bitfield["is_bitfield"] = True
-        bitfield["bits"] = bit_info["bits"]
-        bitfield["description"] = bit_info["description"]
-        bitfield["bit_offset"] = offset
-        bitfield.pop('bitfield', None)
-        name.append(bit_info["name"])
-        bitfield["name"] = copy.deepcopy(name)
-        name.pop()
-        offset += bit_info["bits"]
-        bitfields.append(bitfield)
-    return bitfields
+def _update_access(elements, access):
+    for element in elements:
+        if 'access' in element:
+            overwrite_access = element['access']
+        else:
+            overwrite_access = access
+        if "elements" in element:
+            _update_access(element["elements"], access)
+        elif "array" in element:
+            for array_val in element["array"]:
+                _update_access(array_val["elements"], access)
+        element["access"] = overwrite_access
 
 
-def _element_to_mem_map_record(name, element, mem_map):
-    mem_map.append(copy.deepcopy(element))
-    name.append(element["name"])
-    if "array_size" in element:
-        mem_map[-1]["total_size"] = element["size"] * element["array_size"]
-        name.append("%d" % element["array_size"])
-    else:
-        mem_map[-1]["total_size"] = element["size"]
-    mem_map[-1].pop('array_size', None)
-    mem_map[-1].pop('bitfield', None)
-    mem_map[-1].pop('bit_type', None)
-
-    mem_map[-1]["name"] = copy.deepcopy(name)
-    mem_map[-1]["bits"] = element["size"] * 8
-    mem_map[-1]["bit_offset"] = 0
-    mem_map[-1]["is_bitfield"] = False
-
-    if 'bitfield' in element:
-        mem_map.extend(_element_to_bitfield_record(name, element))
-    if "array_size" in element:
-        name.pop()
-    name.pop()
+def _expand_mem_maps(config):
+    _expand_typedefs(config)
+    expanded_mem_maps = []
+    for typedef in config['typedefs']:
+        if "generate_mem_map" in typedef:
+            if typedef["generate_mem_map"] is True:
+                if 'access' not in typedef:
+                    typedef['access'] = 1
+                _update_access(typedef['elements'], typedef['access'])
+                _update_offsets(typedef['elements'])
+                expanded_mem_maps.append(typedef)
+    return expanded_mem_maps
 
 
-def _parse_elements_to_mem_map(elements, mem_map=None, name=None):
+def _parse_elements_to_records(elements, mem_map=None, name=None):
     if mem_map is None:
         mem_map = []
     if name is None:
@@ -112,79 +88,68 @@ def _parse_elements_to_mem_map(elements, mem_map=None, name=None):
     for element in elements:
         if "elements" in element:
             name.append(element["name"])
-            _parse_elements_to_mem_map(element["elements"], mem_map, name)
+            _parse_elements_to_records(element["elements"], mem_map, name)
             name.pop()
         elif "array" in element:
             name.append(element["name"])
             for i, array_val in enumerate(element["array"]):
                 name.append("%d" % i)
-                _parse_elements_to_mem_map(array_val["elements"],
+                _parse_elements_to_records(array_val["elements"],
                                            mem_map, name)
                 name.pop()
             name.pop()
         else:
-            _element_to_mem_map_record(name, element, mem_map)
+            mem_map.append(deepcopy(element))
+            name.append(element["name"])
+
+            mem_map[-1]["name"] = deepcopy(name)
+
+            name.pop()
     return mem_map
 
 
-def parse_typedefs_to_mem_map(typedefs, mem_map=None):
-    """Parses a selected (or the last) typedef to a memory map"""
-    mem_map_expanded = _expand_mem_map(typedefs, mem_map=None)
-    mem_map = _parse_elements_to_mem_map(mem_map_expanded['elements'])
-    return mem_map
+def _match_k_in_list(list1, list2, match_key='name'):
+    """Matches or aligns the values of a given key in two lists of dicts"""
+    matching_list = []
+    for val1 in list1:
+        for val2 in list2:
+            if val1[match_key] == val2[match_key]:
+                matching_list.append([val1, val2])
+    return matching_list
 
 
-def import_mem_map_values(mem_map, saved_mem_map,
-                          generated_fields=None):
+def _import_mem_map_values(config, previous_mem_maps):
     """Imports type_name values from saved memory maps"""
-    if generated_fields is None:
-        generated_fields = ['bit_offset', 'bits', 'is_bitfield', 'bit_offset',
-                            'name', 'offset', 'size', 'total_size', 'type']
-    for saved_record in saved_mem_map:
-        for record in mem_map:
-            if record['name'] == saved_record['name']:
-                for field_name in saved_record.keys():
-                    if field_name not in generated_fields:
-                        record[field_name] = saved_record[field_name]
+    generated_fields = ['bit_offset', 'bits', 'name', 'offset', 'type_size',
+                        'total_size', 'type', 'array_size']
+    for matched_mem_map in _match_k_in_list(config['mem_maps'],
+                                            previous_mem_maps):
+        for matched_record in _match_k_in_list(matched_mem_map[0]['records'],
+                                               matched_mem_map[1]['records']):
+            for field_name in matched_record[1].keys():
+                if field_name not in generated_fields:
+                    debug("Matched %r[%r]",
+                          matched_record[1]['name'],
+                          field_name)
+                    val = matched_record[1][field_name]
+                    if field_name not in matched_record[0]:
+                        matched_record[0][field_name] = val
+                    elif matched_record[0][field_name] != val:
+                        debug("Replacing %r: %r with %r",
+                              field_name, matched_record[0][field_name], val)
+                        matched_record[0][field_name] = val
 
 
-def main():
-    """Tests the parsing and updating saved values from the memory map."""
-    from pprint import pprint
-    from gen_helpers import TEST_T
-    import td_parser
-
-    typedefs = td_parser.parse_basic_typedefs(TEST_T)
-
-    mem_map = parse_typedefs_to_mem_map(typedefs)
-    saved_mem_map = copy.deepcopy(mem_map)
-    saved_mem_map[0]['access'] = 99
-    saved_mem_map[1]['default'] = '123'
-    saved_mem_map[1]['description'] = 'test to alter description'
-
-    print("================ MEM MAP =====================\n")
-    pprint(mem_map, width=120)
-    print("=============== SAVED MEM MAP ================\n")
-    pprint(saved_mem_map, width=120)
-
-    print('============ Diff ============')
-    try:
-        from deepdiff import DeepDiff
-        pprint(DeepDiff(mem_map, saved_mem_map))
-    except ImportError:
-        print("Cannot make diff, try 'pip install deepdiff'")
-
-    import_mem_map_values(mem_map, saved_mem_map)
-    print("============== MODIFIED MEM MAP ===============\n")
-    pprint(mem_map, width=120)
-
-    print('============ Diff After Modified ============')
-    try:
-        from deepdiff import DeepDiff
-        pprint(DeepDiff(mem_map, saved_mem_map))
-    except ImportError:
-        print("Cannot make diff, try 'pip install deepdiff'")
-
-
-if __name__ == "__main__":
-    main()
+def parse_typedefs_to_mem_maps(config, import_previous_values):
+    """Parses a selected (or the last) typedef to a memory map"""
+    info("Importing memory maps")
+    if import_previous_values:
+        previous_mem_maps = deepcopy(config['mem_maps'])
+    config['mem_maps'] = []
+    for exp_mm in _expand_mem_maps(config):
+        mem_map = {'name': exp_mm['type_name']}
+        mem_map['records'] = _parse_elements_to_records(exp_mm['elements'])
+        config['mem_maps'].append(mem_map)
+    if import_previous_values:
+        _import_mem_map_values(config, previous_mem_maps)
+    debug("Memory maps are:\n%s", pformat(config['mem_maps']))

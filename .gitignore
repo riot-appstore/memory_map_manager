@@ -1,5 +1,7 @@
-output/
-saved_setups/Archive
-
 # Python compiled files
 *.pyc
+dist/
+build/
+*.egg-info
+*.eggs
+__pycache__

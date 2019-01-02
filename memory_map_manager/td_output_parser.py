@@ -1,86 +1,78 @@
 #!/usr/bin/env python3
+# Copyright (c) 2018 Kevin Weiss, for HAW Hamburg  <kevin.weiss@haw-hamburg.de>
+#
+# This file is subject to the terms and conditions of the MIT License. See the
+# file LICENSE in the top level directory for more details.
+# SPDX-License-Identifier:    MIT
 """This module generates output files based on typedefs."""
+from copy import deepcopy
 
 
-def _metadata_to_h_intro(metadata):
+def _metadata_to_h_intro(config):
+    metadata = config['metadata']
     intro_str = "/*\n"
-    intro_str += " * Filename: {}.g\n".format(metadata["name"])
+    intro_str += " * Filename: {}_typedef.h\n".format(metadata["app_name"])
+    intro_str += " * App Name: {}\n".format(metadata["app_name"])
     intro_str += " * Author: {}\n".format(metadata["author"])
-    intro_str += " * Revision: {}\n".format(metadata["revision"])
+    intro_str += " * Version: {}\n".format(metadata["version"])
     intro_str += " */\n\n"
-    intro_str += "#ifndef %s_H_\n" % (metadata["name"].upper())
-    intro_str += "#define %s_H_\n" % (metadata["name"].upper())
+    intro_str += "#ifndef %s_TYPEDEF_H\n" % (metadata["app_name"].upper())
+    intro_str += "#define %s_TYPEDEF_H\n" % (metadata["app_name"].upper())
     return intro_str
 
 
-def _bitfield_to_c_struct(bf_element):
-    bf_str = ""
-    bf_str += "/* @brief {} */\n".format(bf_element["description"])
-    bf_str += "typedef struct %s_TAG {\n" % (bf_element["type"])
-    total_bits = 0
-    for val in bf_element["bitfield"]:
-        bf_str += "\t/* {} */\n".format(val["description"])
-        bf_str += "\t{} {} : {};\n".format(bf_element["bit_type"],
-                                           val["name"], val["bits"])
-        total_bits += int(val["bits"])
-    bf_str += "} %s;\n\n" % (bf_element["type"])
+def _try_key(try_dict, try_key):
+    if try_key not in try_dict:
+        return ''
+    return try_dict[try_key]
 
-    if bf_element["size"] < ((float(total_bits)/8)):
-        raise ValueError("Too many bits in %s for %s" %
-                         (bf_element["type"], bf_element["bit_type"]))
+
+def _bitfields_to_c_struct(config):
+    bf_str = ''
+    for bitfield in config["bitfields"]:
+        bf_str += "/* @brief {} */\n".format(_try_key(bitfield, "description"))
+        bf_str += "typedef struct %s_TAG {\n" % (bitfield["type_name"])
+        for element in bitfield["elements"]:
+            bf_str += "\t/* {} */\n".format(_try_key(element, "description"))
+            bf_str += "\t{} {} : {};\n".format(bitfield["type"],
+                                               element["name"],
+                                               element["bits"])
+        bf_str += "} %s;\n\n" % (bitfield["type_name"])
     return bf_str
 
 
-def _typedef_to_c_struct(typedef):
-    c_str = ""
-    for element in typedef["elements"]:
-        if 'bitfield' in element:
-            c_str += _bitfield_to_c_struct(element)
-    c_str += "/* @brief {} */\n".format(typedef["description"])
-    c_str += "typedef union %s_TAG {\n" % (typedef["name"])
-    c_str += "\tstruct {\n"
-
-    for element in typedef["elements"]:
-        c_str += "\t\t/* {} */\n".format(element["description"])
-        if 'array_size' in element:
-            c_str += "\t\t{} {}[{}];\n".format(element["type"],
-                                               element["name"],
-                                               element["array_size"])
-        else:
-            c_str += "\t\t{} {};\n".format(element["type"], element["name"])
-    c_str += "\t};\n"
-    c_str += "\tuint8_t data8[{}];\n".format(typedef["size"])
-    c_str += "} %s;\n" % (typedef["name"])
+def _typedefs_to_c_struct(config):
+    c_str = ''
+    for typedef in config['typedefs']:
+        c_str += "/* @brief {} */\n".format(_try_key(typedef, "description"))
+        c_str += "typedef union %s_TAG {\n" % (typedef["type_name"])
+        c_str += "\tstruct {\n"
+        for element in typedef["elements"]:
+            c_str += "\t\t/* {} */\n".format(_try_key(element, "description"))
+            if 'array_size' in element:
+                c_str += "\t\t{} {}[{}];\n".format(element["type"],
+                                                   element["name"],
+                                                   element["array_size"])
+            else:
+                c_str += "\t\t{} {};\n".format(element["type"],
+                                               element["name"])
+        c_str += "\t};\n"
+        c_str += "\tuint8_t data8[{}];\n".format(typedef["type_size"])
+        c_str += "} %s;\n\n" % (typedef["type_name"])
     return c_str
 
 
-def parse_typedefs_to_h(typedefs, metadata=None):
+def parse_typedefs_to_h(config):
     """Parses the typedef to a c header containing typedef structs."""
+    local_config = deepcopy(config)
     td_str = ""
-    if metadata is not None:
-        td_str += _metadata_to_h_intro(metadata)
+    td_str += _metadata_to_h_intro(local_config)
     td_str += "\n"
     td_str += "#include <stdint.h>\n"
     td_str += "\n"
     td_str += "#pragma pack(1)\n"
-    for typedef in typedefs:
-        td_str += _typedef_to_c_struct(typedef)
-        td_str += "\n"
+    td_str += _bitfields_to_c_struct(local_config)
+    td_str += _typedefs_to_c_struct(local_config)
     td_str += "#pragma pack()\n"
-    if metadata is not None:
-        td_str += "#endif"
+    td_str += "#endif"
     return td_str
-
-
-def main():
-    """Tests parsing example typedef to c header."""
-    from td_parser import parse_basic_typedefs
-    from gen_helpers import TEST_T
-    from gen_helpers import TEST_MD
-
-    typedefs = parse_basic_typedefs(TEST_T)
-    print(parse_typedefs_to_h(typedefs, TEST_MD))
-
-
-if __name__ == "__main__":
-    main()

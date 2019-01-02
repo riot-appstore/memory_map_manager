@@ -15,7 +15,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="memory_map_manager",
-    version="0.0.0",
+    version="0.0.1",
     author="Kevin Weiss",
     author_email="kevin.weiss@haw-hamburg.de",
     license="MIT",
@@ -25,7 +25,7 @@ setup(
     url="https://github.com/riot-appstore/memory_map_manager",
     packages=find_packages(),
     platforms='any',
-    python_requires='>=3.4.*',
+    python_requires='>=3.5.*',
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -36,6 +36,8 @@ setup(
     ],
     setup_requires=["pytest-runner"],
     tests_require=["pytest", "pytest-regtest", "pprint"],
-    install_requires=[],
-    scripts=['memory_map_manager/code_gen'],
+    install_requires=["jsonschema"],
+    entry_points={
+        'console_scripts': ['generate_map=memory_map_manager.code_gen:main'],
+    }
 )
