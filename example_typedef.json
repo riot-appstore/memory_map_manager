@@ -1,99 +1,360 @@
 {
-    "metadata":{
-        "app_name":"philip",
-        "author":"Kevin Weiss",
-        "version":"1.00.04"
-    },
-    "bitfields":[
+    "bitfields": [
         {
-            "type_name":"example_bitfield_t",
-            "type":"uint8_t",
-            "elements":[
+            "elements": [
                 {
-                    "name":"basic_enable_reg",
-                    "bits":1
+                    "bits": 1,
+                    "name": "basic_enable_reg"
                 },
                 {
-                    "name":"example_prescale_reg",
-                    "bits":5
+                    "bits": 5,
+                    "name": "example_prescale_reg"
                 }
-            ]
+            ],
+            "type": "uint8_t",
+            "type_name": "example_bitfield_t"
         }
     ],
-    "typedefs":[
+    "mem_maps": [
         {
-            "type_name":"the_example_typedef_t",
-            "access":1,
-            "elements":[
+            "name": "mem_map_example_t",
+            "records": [
                 {
-                    "name":"basic_element",
-                    "type":"uint8_t"
+                    "access": 1,
+                    "name": [
+                        "an_element",
+                        "basic_element"
+                    ],
+                    "offset": 0,
+                    "type": "uint8_t",
+                    "type_size": 1
                 },
                 {
-                    "name":"access_3_element",
-                    "type":"uint32_t",
-                    "access":3
+                    "access": 3,
+                    "name": [
+                        "an_element",
+                        "access_3_element"
+                    ],
+                    "offset": 1,
+                    "type": "uint32_t",
+                    "type_size": 4
                 },
                 {
-                    "name":"access_0_element",
-                    "type":"uint32_t",
-                    "access":0
+                    "access": 0,
+                    "name": [
+                        "an_element",
+                        "access_0_element"
+                    ],
+                    "offset": 5,
+                    "type": "uint32_t",
+                    "type_size": 4
                 },
                 {
-                    "name":"specified_element",
-                    "type":"uint32_t",
-                    "default":1,
-                    "max":10,
-                    "min":0,
-                    "invalid":11
+                    "access": 1,
+                    "default": 1,
+                    "invalid": 11,
+                    "max": 10,
+                    "min": 0,
+                    "name": [
+                        "an_element",
+                        "specified_element"
+                    ],
+                    "offset": 9,
+                    "type": "uint32_t",
+                    "type_size": 4
                 },
                 {
-                    "name":"array_element",
-                    "type":"int32_t",
-                    "array_size":9
+                    "access": 1,
+                    "array_size": 9,
+                    "name": [
+                        "an_element",
+                        "array_element"
+                    ],
+                    "offset": 13,
+                    "total_size": 36,
+                    "type": "int32_t",
+                    "type_size": 4
                 },
                 {
-                    "name":"other_element",
-                    "type":"uint16_t"
+                    "access": 1,
+                    "name": [
+                        "an_element",
+                        "other_element"
+                    ],
+                    "offset": 49,
+                    "type": "uint16_t",
+                    "type_size": 2
                 },
                 {
-                    "name":"using_bitfield_type_element",
-                    "type":"example_bitfield_t"
+                    "access": 1,
+                    "bit_offset": 0,
+                    "bits": 1,
+                    "name": [
+                        "an_element",
+                        "using_bitfield_type_element",
+                        "basic_enable_reg"
+                    ],
+                    "offset": 51
+                },
+                {
+                    "access": 1,
+                    "bit_offset": 1,
+                    "bits": 5,
+                    "name": [
+                        "an_element",
+                        "using_bitfield_type_element",
+                        "example_prescale_reg"
+                    ],
+                    "offset": 51
+                },
+                {
+                    "access": 1,
+                    "name": [
+                        "array_of_special_type",
+                        "0",
+                        "element_a"
+                    ],
+                    "offset": 51,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 3,
+                    "name": [
+                        "array_of_special_type",
+                        "0",
+                        "element_b_with_access_3"
+                    ],
+                    "offset": 52,
+                    "type": "uint32_t",
+                    "type_size": 4
+                },
+                {
+                    "access": 0,
+                    "array_size": 11,
+                    "description": "Reserved bytes",
+                    "name": [
+                        "array_of_special_type",
+                        "0",
+                        "res"
+                    ],
+                    "offset": 56,
+                    "total_size": 11,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 1,
+                    "name": [
+                        "array_of_special_type",
+                        "1",
+                        "element_a"
+                    ],
+                    "offset": 67,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 3,
+                    "name": [
+                        "array_of_special_type",
+                        "1",
+                        "element_b_with_access_3"
+                    ],
+                    "offset": 68,
+                    "type": "uint32_t",
+                    "type_size": 4
+                },
+                {
+                    "access": 0,
+                    "array_size": 11,
+                    "description": "Reserved bytes",
+                    "name": [
+                        "array_of_special_type",
+                        "1",
+                        "res"
+                    ],
+                    "offset": 72,
+                    "total_size": 11,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 1,
+                    "name": [
+                        "array_of_special_type",
+                        "2",
+                        "element_a"
+                    ],
+                    "offset": 83,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 3,
+                    "name": [
+                        "array_of_special_type",
+                        "2",
+                        "element_b_with_access_3"
+                    ],
+                    "offset": 84,
+                    "type": "uint32_t",
+                    "type_size": 4
+                },
+                {
+                    "access": 0,
+                    "array_size": 11,
+                    "description": "Reserved bytes",
+                    "name": [
+                        "array_of_special_type",
+                        "2",
+                        "res"
+                    ],
+                    "offset": 88,
+                    "total_size": 11,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 1,
+                    "name": [
+                        "other_element"
+                    ],
+                    "offset": 99,
+                    "type": "uint16_t",
+                    "type_size": 2
                 }
             ]
         },
         {
-            "type_name":"mem_map_example_t",
-            "generate_mem_map":true,
-            "elements":[
+            "name": "simple_mem_map_t",
+            "records": [
                 {
-                    "name":"an_element",
-                    "type":"the_example_typedef_t"
+                    "access": 1,
+                    "description": "Example of parameter not generated",
+                    "name": [
+                        "foo"
+                    ],
+                    "offset": 0,
+                    "type": "uint8_t",
+                    "type_size": 1
                 },
                 {
-                    "name":"other_element",
-                    "type":"uint16_t"
+                    "access": 1,
+                    "name": [
+                        "bar"
+                    ],
+                    "offset": 1,
+                    "type": "uint8_t",
+                    "type_size": 1
                 }
             ]
         }
     ],
-    "mem_map":[
+    "metadata": {
+        "app_name": "example",
+        "author": "Kevin Weiss",
+        "version": "0.00.00"
+    },
+    "typedefs": [
         {
-            "access":0,
-            "bit_offset":0,
-            "bits":8,
-            "description":"Unique ID of the device",
-            "flag":"DEVICE_SPECIFIC",
-            "is_bitfield":false,
-            "name":[
-                "sys",
-                "sn",
-                "12"
+            "access": 1,
+            "elements": [
+                {
+                    "name": "basic_element",
+                    "type": "uint8_t"
+                },
+                {
+                    "access": 3,
+                    "name": "access_3_element",
+                    "type": "uint32_t"
+                },
+                {
+                    "access": 0,
+                    "name": "access_0_element",
+                    "type": "uint32_t"
+                },
+                {
+                    "default": 1,
+                    "invalid": 11,
+                    "max": 10,
+                    "min": 0,
+                    "name": "specified_element",
+                    "type": "uint32_t"
+                },
+                {
+                    "array_size": 9,
+                    "name": "array_element",
+                    "type": "int32_t"
+                },
+                {
+                    "name": "other_element",
+                    "type": "uint16_t"
+                },
+                {
+                    "name": "using_bitfield_type_element",
+                    "type": "example_bitfield_t"
+                }
             ],
-            "offset":0,
-            "size":1,
-            "total_size":12,
-            "type":"uint8_t"
+            "type_name": "the_example_typedef_t"
+        },
+        {
+            "access": 1,
+            "elements": [
+                {
+                    "name": "element_a",
+                    "type": "uint8_t"
+                },
+                {
+                    "access": 3,
+                    "name": "element_b_with_access_3",
+                    "type": "uint32_t"
+                }
+            ],
+            "type_name": "simple_t",
+            "type_size": 16
+        },
+        {
+            "elements": [
+                {
+                    "name": "an_element",
+                    "type": "the_example_typedef_t"
+                },
+                {
+                    "array_size": 3,
+                    "name": "array_of_special_type",
+                    "type": "simple_t"
+                },
+                {
+                    "name": "other_element",
+                    "type": "uint16_t"
+                }
+            ],
+            "generate_mem_map": true,
+            "type_name": "mem_map_example_t"
+        },
+        {
+            "elements": [
+                {
+                    "name": "foo",
+                    "type": "uint8_t"
+                },
+                {
+                    "name": "bar",
+                    "type": "uint8_t"
+                }
+            ],
+            "generate_mem_map": true,
+            "type_name": "simple_mem_map_t"
+        },
+        {
+            "elements": [
+                {
+                    "name": "foobar",
+                    "type": "uint8_t"
+                }
+            ],
+            "type_name": "non_generated_mm_t"
         }
     ]
 }
