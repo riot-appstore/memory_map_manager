@@ -1,107 +1,92 @@
 #!/usr/bin/env python3
+# Copyright (c) 2018 Kevin Weiss, for HAW Hamburg  <kevin.weiss@haw-hamburg.de>
+#
+# This file is subject to the terms and conditions of the MIT License. See the
+# file LICENSE in the top level directory for more details.
+# SPDX-License-Identifier:    MIT
 """Fills in any missing/calculatable information of typedefs"""
 from copy import deepcopy
-from gen_helpers import PRIM_TYPES
+from logging import debug, info
+from pprint import pformat
+from .gen_helpers import PRIM_TYPES
+
+
+def _assert_val_is_unique(dict_list, key_name):
+    used_names = []
+    for target_dict in dict_list:
+        if target_dict[key_name] in used_names:
+            raise ValueError("{} is a duplicate name".
+                             format(target_dict[key_name]))
+        used_names.append(target_dict[key_name])
+
+
+def _update_bitfields(config):
+    info("Updating bitfields from typedef")
+
+    for bitfield in config['bitfields']:
+        bit_offset = 0
+        for element in bitfield['elements']:
+            element['bit_offset'] = bit_offset
+            bit_offset += element['bits']
+        if 'type' not in bitfield:
+            bitfield['type'] = 'uint8_t'
+        bitfield['type_size'] = PRIM_TYPES[bitfield['type']]
+        if bit_offset > bitfield['type_size']*8:
+            raise ValueError("Bits do not fit into type, {} -> {}bits > {}".
+                             format(bitfield['type_name'],
+                                    bit_offset,
+                                    bitfield['type']))
+    _assert_val_is_unique(config['bitfields'], 'type_name')
+    debug("bitfields are now:\n%s", pformat(config['bitfields']))
 
 
 def _fill_res_element(typedef, total_byte):
     res = {'name': 'res',
            'type': 'uint8_t',
-           'array_size': typedef['size'] - total_byte,
-           'size': 1,
+           'array_size': typedef['type_size'] - total_byte,
+           'type_size': 1,
+           'total_size': typedef['type_size'] - total_byte,
            'description': 'Reserved bytes',
-           'access': 0x00,
-           'default': None}
-    typedef["elements"].append(res)
+           'access': 0x00}
+    typedef['elements'].append(res)
+    debug("Adding reserved element to %r of size %r",
+          typedef['type_name'], res['total_size'])
 
 
-def _update_typedef_size(typedef, total_byte):
-    if 'size' in typedef:
-        if typedef['size'] < total_byte:
-            raise ValueError("{} to large".format(typedef["name"]))
+def _update_typedefs_sizes(config, type_sizes):
+    info("Updating typedef sizes")
+    for typedef in config['typedefs']:
+        total_byte = 0
+        for element in typedef['elements']:
+            element["type_size"] = type_sizes[element["type"]]
 
-        if typedef['size'] is not total_byte:
-            _fill_res_element(typedef, total_byte)
-    else:
-        typedef['size'] = total_byte
+            if 'array_size' in element:
+                element["total_size"] = element["type_size"]\
+                                        * element["array_size"]
+                total_byte += element["total_size"]
+            else:
+                total_byte += element["type_size"]
 
+        if 'type_size' in typedef:
+            if typedef['type_size'] < total_byte:
+                raise ValueError("{} to large".format(typedef["name"]))
 
-def _update_element_sizes(elements, type_sizes):
-    total_byte = 0
-    for element in elements:
-        if 'bitfield' in element:
-            element["size"] = PRIM_TYPES[element["bit_type"]]
+            if typedef['type_size'] is not total_byte:
+                _fill_res_element(typedef, total_byte)
         else:
-            element["size"] = type_sizes[element["type"]]
-
-        if 'array_size' in element:
-            total_byte += element["size"] * element["array_size"]
-        else:
-            total_byte += element["size"]
-    return total_byte
+            typedef['type_size'] = total_byte
+        type_sizes[typedef["type_name"]] = typedef["type_size"]
 
 
-def _update_typedef_sizes(typedefs):
-    type_sizes = {}
-    type_sizes.update(PRIM_TYPES)
-    for typedef in typedefs:
-        total_byte = _update_element_sizes(typedef["elements"], type_sizes)
-        _update_typedef_size(typedef, total_byte)
-        type_sizes[typedef["name"]] = typedef["size"]
-
-
-def _fill_elements(elements, type_name, value, bitfield):
-    for element in elements:
-        if type_name not in element:
-            element[type_name] = value
-        if bitfield and 'bitfield' in element:
-            for bf_val in element['bitfield']:
-                if type_name not in bf_val:
-                    bf_val[type_name] = value
-
-
-def _fill_empty_typedefs(typedefs, type_name, value,
-                         overwrite=True, bitfield=False):
-    for typedef in typedefs:
-        if type_name not in typedef:
-            typedef[type_name] = value
-
-        if overwrite:
-            _fill_elements(typedef['elements'], type_name, value, bitfield)
-        else:
-            _fill_elements(typedef['elements'], type_name,
-                           typedef[type_name], bitfield)
-
-
-def parse_basic_typedefs(typedefs):
+def update_typedefs(config):
     """Fills in any missing/calculatable information of typedefs."""
-    # Calculates sizes and res bytes
-    cp_typedefs = deepcopy(typedefs)
-    _update_typedef_sizes(cp_typedefs)
-    _fill_empty_typedefs(cp_typedefs, 'description', '', bitfield=True)
-    _fill_empty_typedefs(cp_typedefs, 'default', None)
-    _fill_empty_typedefs(cp_typedefs, 'access', 1, False)
-    return cp_typedefs
+    info("Updating typedefs from config")
+    type_sizes = deepcopy(PRIM_TYPES)
+    _update_bitfields(config)
+    for bitfield in config['bitfields']:
+        type_sizes[bitfield['type_name']] = bitfield['type_size']
 
-
-def main():
-    """Prints example of the parsing."""
-    from pprint import pprint
-    from gen_helpers import TEST_T
-
-    print('============ Before Parsing ============')
-    pprint(TEST_T)
-    typedefs = parse_basic_typedefs(TEST_T)
-    print('============ After Parsing ============')
-    pprint(typedefs)
-    print('============ Diff ============')
-    try:
-        from deepdiff import DeepDiff
-
-        pprint(DeepDiff(TEST_T, typedefs))
-    except ImportError:
-        print("Cannot make diff, try 'pip install deepdiff'")
-
-
-if __name__ == "__main__":
-    main()
+    _update_typedefs_sizes(config, type_sizes)
+    for typedef in config['typedefs']:
+        type_sizes[typedef["type_name"]] = typedef["type_size"]
+    _assert_val_is_unique(config['typedefs'], 'type_name')

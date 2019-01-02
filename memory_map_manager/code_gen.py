@@ -1,103 +1,105 @@
 #!/usr/bin/env python3
+# Copyright (c) 2018 Kevin Weiss, for HAW Hamburg  <kevin.weiss@haw-hamburg.de>
+#
+# This file is subject to the terms and conditions of the MIT License. See the
+# file LICENSE in the top level directory for more details.
+# SPDX-License-Identifier:    MIT
 """This module handles parsing of typedefs and creating outputs"""
 import os
-import json
 import argparse
-from td_parser import parse_basic_typedefs
-from mm_parser import parse_typedefs_to_mem_map, import_mem_map_values
-from td_output_parser import parse_typedefs_to_h
-from mm_output_parser import parse_mem_map_to_access_c, parse_mem_map_to_csv
-from mm_output_parser import parse_mem_map_to_if
-from gen_helpers import to_underscore_case
+import logging
+from copy import deepcopy
+from pprint import pprint
+from .td_parser import update_typedefs
+from .td_output_parser import parse_typedefs_to_h
+from .mm_parser import parse_typedefs_to_mem_maps
+from .mm_output_parser import parse_mem_map_to_csv, parse_mem_map_to_access_c
+from .config_import_export import import_config, export_config
+
+LOG_HANDLER = logging.StreamHandler()
+LOG_HANDLER.setFormatter(logging.Formatter(logging.BASIC_FORMAT))
+
+LOG_LEVELS = ('debug', 'info', 'warning', 'error', 'fatal', 'critical')
 
 
-def _parse_filename(f_arg, d_arg, name_contains):
-    if f_arg is not None:
-        for file in os.listdir(os.path.join(os.path.dirname(__file__), d_arg)):
-            if file.endswith(".json"):
-                if name_contains in file:
-                    return file
-    return None
+PARSER = argparse.ArgumentParser()
+
+PARSER.add_argument("--config_path", "-cfgp",
+                    help='The path to the config file or directory',
+                    default='')
+
+PARSER.add_argument("--output_config", "-ocfg",
+                    help='The path and name of the output config file')
+
+PARSER.add_argument("--output_dir", "-odir",
+                    help='The path for all generated output',
+                    default='')
+
+PARSER.add_argument("--reset_config", "-rcfg",
+                    help='Dont copy previous non-generated mem map values',
+                    action='store_true',
+                    default=False)
+
+PARSER.add_argument("--only_update_config", "-ouc",
+                    help='Only updates config file without generating files',
+                    action='store_true',
+                    default=False)
+
+PARSER.add_argument("--print_config", "-pcfg",
+                    help='Prints the config to stdout',
+                    action='store_true',
+                    default=False)
+
+PARSER.add_argument('--loglevel', choices=LOG_LEVELS, default='info',
+                    help='Python logger log level, defaults to "info"')
 
 
 def main():
     """Parses typedefs and creates outputs"""
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input_dir",
-                        help='Directory where all input files are stored',
-                        default='saved_setups/')
-    parser.add_argument("--output_dir",
-                        help='Output directory where results are stored',
-                        default='output/')
-    parser.add_argument("--import_td_f",
-                        help='Typedef file to import and parse')
-    parser.add_argument("--import_mm_f",
-                        help='Saved memory map file to not '
-                        'overwrite changes to access, '
-                        'description, and default values')
-    parser.add_argument("--output_mm_f",
-                        help='Output file for the memory map')
-    parser.add_argument("--csv_name",
-                        help='Output filename of the memory map csv',
-                        default='mem_map.csv')
-    parser.add_argument("--td_h_name",
-                        help='Output filename of the typedef c header',
-                        default='app_typedef.h')
-    parser.add_argument("--access_name",
-                        help='Output filename of the access.c file',
-                        default='app_access.c')
-    parser.add_argument("--py_if_name",
-                        help='Output filename of python interface')
-    parser.add_argument("--if_parent",
-                        help='Name of the parent class the python interface '
-                             'is based on',
-                        default="BaseDevice")
-    args = parser.parse_args()
+    args = PARSER.parse_args()
+    if args.loglevel:
+        loglevel = logging.getLevelName(args.loglevel.upper())
+        logging.basicConfig(level=loglevel)
+    logging.info("Starting memory_map_manager")
 
-    import_td_f = _parse_filename(args.import_td_f, args.input_dir, "typedef")
-    import_mm_f = _parse_filename(args.import_mm_f, args.input_dir, "mem_map")
-
-    with open(os.path.join(args.input_dir, import_td_f)) as td_f:
-        json_data = json.load(td_f)
-    typedefs = json_data['typedefs']
-    metadata = json_data['metadata']
-
-    typedefs = parse_basic_typedefs(typedefs)
-    mem_map = parse_typedefs_to_mem_map(typedefs)
-
-    if import_mm_f is not None:
-        with open(os.path.join(args.input_dir, import_mm_f)) as mm_f:
-            imported_mem_map = json.load(mm_f)
-        import_mem_map_values(mem_map, imported_mem_map)
+    if args.config_path.startswith('/'):
+        config_path = args.config_path
     else:
-        import_mm_f = 'mem_map.json'
+        config_path = os.path.join(os.getcwd(), args.config_path)
+    config = import_config(config_path)
+    imported_config = deepcopy(config)
+    update_typedefs(config)
+    parse_typedefs_to_mem_maps(config, (args.reset_config is False))
 
-    if not os.path.exists(args.input_dir):
-        os.makedirs(args.input_dir)
-    if import_mm_f is None:
-        import_mm_f = import_td_f.replace("typedef", "mem_map")
-    with open(os.path.join(args.input_dir, import_mm_f), 'w') as outfile:
-        json.dump(mem_map, outfile, indent=4, sort_keys=True)
+    imported_config['mem_maps'] = deepcopy(config['mem_maps'])
+    if args.output_config is not None:
+        export_config(imported_config, args.output_config)
+    else:
+        export_config(imported_config, config_path)
 
-    if not os.path.exists(args.output_dir):
-        os.makedirs(args.output_dir)
+    if args.print_config:
+        pprint(imported_config)
 
-    with open(os.path.join(args.output_dir, args.csv_name), 'w') as outfile:
-        outfile.write(parse_mem_map_to_csv(mem_map))
+    if args.only_update_config:
+        return
 
-    with open(os.path.join(args.output_dir, args.access_name), 'w') as outfile:
-        outfile.write(parse_mem_map_to_access_c(mem_map))
+    if args.output_dir.startswith('/'):
+        output_dir = args.config_path
+    else:
+        output_dir = os.path.join(os.getcwd(), args.output_dir)
 
-    if args.py_if_name is None:
-        args.py_if_name = to_underscore_case(metadata['name'])
-    with open(os.path.join(args.output_dir, args.py_if_name + '.py'),
-              'w') as outfile:
-        outfile.write(parse_mem_map_to_if(mem_map, args.py_if_name,
-                                          args.if_parent))
+    filename = config['metadata']['app_name']
+    with open(os.path.join(output_dir, filename + '_typedef.h'), "w") as out_f:
+        out_f.write(parse_typedefs_to_h(config))
 
-    with open(os.path.join(args.output_dir, args.td_h_name), 'w') as outfile:
-        outfile.write(parse_typedefs_to_h(typedefs, metadata))
+    for mem_map in config['mem_maps']:
+        with open(os.path.join(output_dir,
+                               mem_map['name'] + '.csv'), "w") as out_f:
+            out_f.write(parse_mem_map_to_csv(mem_map))
+
+    with open(os.path.join(output_dir, 'access.c'), "w") as out_f:
+        out_f.write(parse_mem_map_to_access_c(config['mem_maps']))
 
 
 if __name__ == "__main__":
