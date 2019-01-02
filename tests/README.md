@@ -1,8 +1,8 @@
 Testing a package locally
 ```
-pip uninstall memory_map_generator
+sudo pip3 uninstall memory_map_manager
 python3 setup.py sdist
-pip install dist/memory_map_generator-x.x.x.tar.gz
+sudo pip3 install dist/memory_map_manager-x.x.x.tar.gz
 ```
 
 Upload to pip
