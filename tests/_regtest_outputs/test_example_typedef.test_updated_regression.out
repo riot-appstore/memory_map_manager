@@ -16,6 +16,28 @@
             "type": "uint8_t",
             "type_name": "example_bitfield_t",
             "type_size": 1
+        },
+        {
+            "elements": [
+                {
+                    "bit_offset": 0,
+                    "bits": 6,
+                    "name": "basic_enable_reg"
+                },
+                {
+                    "bit_offset": 6,
+                    "bits": 7,
+                    "name": "example_prescale_reg"
+                },
+                {
+                    "bit_offset": 13,
+                    "bits": 1,
+                    "name": "same_offset_over_8_bit_offset"
+                }
+            ],
+            "type": "uint16_t",
+            "type_name": "longer_bitfield_t",
+            "type_size": 2
         }
     ],
     "mem_maps": [
@@ -117,7 +139,7 @@
                         "0",
                         "element_a"
                     ],
-                    "offset": 51,
+                    "offset": 52,
                     "type": "uint8_t",
                     "type_size": 1
                 },
@@ -128,7 +150,7 @@
                         "0",
                         "element_b_with_access_3"
                     ],
-                    "offset": 52,
+                    "offset": 53,
                     "type": "uint32_t",
                     "type_size": 4
                 },
@@ -141,7 +163,7 @@
                         "0",
                         "res"
                     ],
-                    "offset": 56,
+                    "offset": 57,
                     "total_size": 11,
                     "type": "uint8_t",
                     "type_size": 1
@@ -152,19 +174,19 @@
                         "array_of_special_type",
                         "1",
                         "element_a"
-                    ],
-                    "offset": 67,
-                    "type": "uint8_t",
-                    "type_size": 1
-                },
-                {
-                    "access": 3,
-                    "name": [
-                        "array_of_special_type",
-                        "1",
-                        "element_b_with_access_3"
                     ],
                     "offset": 68,
+                    "type": "uint8_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 3,
+                    "name": [
+                        "array_of_special_type",
+                        "1",
+                        "element_b_with_access_3"
+                    ],
+                    "offset": 69,
                     "type": "uint32_t",
                     "type_size": 4
                 },
@@ -177,7 +199,7 @@
                         "1",
                         "res"
                     ],
-                    "offset": 72,
+                    "offset": 73,
                     "total_size": 11,
                     "type": "uint8_t",
                     "type_size": 1
@@ -189,7 +211,7 @@
                         "2",
                         "element_a"
                     ],
-                    "offset": 83,
+                    "offset": 84,
                     "type": "uint8_t",
                     "type_size": 1
                 },
@@ -200,7 +222,7 @@
                         "2",
                         "element_b_with_access_3"
                     ],
-                    "offset": 84,
+                    "offset": 85,
                     "type": "uint32_t",
                     "type_size": 4
                 },
@@ -213,17 +235,47 @@
                         "2",
                         "res"
                     ],
-                    "offset": 88,
+                    "offset": 89,
                     "total_size": 11,
                     "type": "uint8_t",
                     "type_size": 1
+                },
+                {
+                    "access": 1,
+                    "bit_offset": 0,
+                    "bits": 6,
+                    "name": [
+                        "longer_bitfield",
+                        "basic_enable_reg"
+                    ],
+                    "offset": 100
+                },
+                {
+                    "access": 1,
+                    "bit_offset": 6,
+                    "bits": 7,
+                    "name": [
+                        "longer_bitfield",
+                        "example_prescale_reg"
+                    ],
+                    "offset": 100
+                },
+                {
+                    "access": 1,
+                    "bit_offset": 13,
+                    "bits": 1,
+                    "name": [
+                        "longer_bitfield",
+                        "same_offset_over_8_bit_offset"
+                    ],
+                    "offset": 100
                 },
                 {
                     "access": 1,
                     "name": [
                         "other_element"
                     ],
-                    "offset": 99,
+                    "offset": 102,
                     "type": "uint16_t",
                     "type_size": 2
                 }
@@ -440,14 +492,14 @@
                                 {
                                     "access": 1,
                                     "name": "element_a",
-                                    "offset": 51,
-                                    "type": "uint8_t",
-                                    "type_size": 1
-                                },
-                                {
-                                    "access": 3,
-                                    "name": "element_b_with_access_3",
                                     "offset": 52,
+                                    "type": "uint8_t",
+                                    "type_size": 1
+                                },
+                                {
+                                    "access": 3,
+                                    "name": "element_b_with_access_3",
+                                    "offset": 53,
                                     "type": "uint32_t",
                                     "type_size": 4
                                 },
@@ -456,7 +508,7 @@
                                     "array_size": 11,
                                     "description": "Reserved bytes",
                                     "name": "res",
-                                    "offset": 56,
+                                    "offset": 57,
                                     "total_size": 11,
                                     "type": "uint8_t",
                                     "type_size": 1
@@ -468,14 +520,14 @@
                                 {
                                     "access": 1,
                                     "name": "element_a",
-                                    "offset": 67,
-                                    "type": "uint8_t",
-                                    "type_size": 1
-                                },
-                                {
-                                    "access": 3,
-                                    "name": "element_b_with_access_3",
                                     "offset": 68,
+                                    "type": "uint8_t",
+                                    "type_size": 1
+                                },
+                                {
+                                    "access": 3,
+                                    "name": "element_b_with_access_3",
+                                    "offset": 69,
                                     "type": "uint32_t",
                                     "type_size": 4
                                 },
@@ -484,7 +536,7 @@
                                     "array_size": 11,
                                     "description": "Reserved bytes",
                                     "name": "res",
-                                    "offset": 72,
+                                    "offset": 73,
                                     "total_size": 11,
                                     "type": "uint8_t",
                                     "type_size": 1
@@ -496,14 +548,14 @@
                                 {
                                     "access": 1,
                                     "name": "element_a",
-                                    "offset": 83,
+                                    "offset": 84,
                                     "type": "uint8_t",
                                     "type_size": 1
                                 },
                                 {
                                     "access": 3,
                                     "name": "element_b_with_access_3",
-                                    "offset": 84,
+                                    "offset": 85,
                                     "type": "uint32_t",
                                     "type_size": 4
                                 },
@@ -512,7 +564,7 @@
                                     "array_size": 11,
                                     "description": "Reserved bytes",
                                     "name": "res",
-                                    "offset": 88,
+                                    "offset": 89,
                                     "total_size": 11,
                                     "type": "uint8_t",
                                     "type_size": 1
@@ -522,22 +574,52 @@
                     ],
                     "array_size": 3,
                     "name": "array_of_special_type",
-                    "offset": 51,
+                    "offset": 52,
                     "total_size": 48,
                     "type": "simple_t",
                     "type_size": 16
                 },
                 {
                     "access": 1,
+                    "elements": [
+                        {
+                            "access": 1,
+                            "bit_offset": 0,
+                            "bits": 6,
+                            "name": "basic_enable_reg",
+                            "offset": 100
+                        },
+                        {
+                            "access": 1,
+                            "bit_offset": 6,
+                            "bits": 7,
+                            "name": "example_prescale_reg",
+                            "offset": 100
+                        },
+                        {
+                            "access": 1,
+                            "bit_offset": 13,
+                            "bits": 1,
+                            "name": "same_offset_over_8_bit_offset",
+                            "offset": 100
+                        }
+                    ],
+                    "name": "longer_bitfield",
+                    "offset": 100,
+                    "type": "longer_bitfield_t",
+                    "type_size": 2
+                },
+                {
+                    "access": 1,
                     "name": "other_element",
-                    "offset": 99,
+                    "offset": 102,
                     "type": "uint16_t",
                     "type_size": 2
                 }
             ],
             "generate_mem_map": true,
             "type_name": "mem_map_example_t",
-            "type_size": 102
+            "type_size": 104
         },
         {
             "access": 1,
