@@ -1,3 +1,8 @@
+Procedure for changes to example_typedef.json (please verify first)
+```
+python3 -m memory_map_manager.code_gen -cfgp example_typedef.json -ocfg example_typedef.json -ouc
+```
+
 Testing a package locally
 ```
 sudo pip3 uninstall memory_map_manager
@@ -7,7 +12,7 @@ sudo pip3 install dist/memory_map_manager-x.x.x.tar.gz
 
 Upload to pip
 ```
-python3 setup.py sdist bdist_wheel
+python3 setup.py sdist
 twine upload dist/*
 ```
 

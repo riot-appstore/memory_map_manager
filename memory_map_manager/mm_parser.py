@@ -42,6 +42,8 @@ def _update_offsets(elements, offset=0):
         element["offset"] = offset
         if "elements" in element:
             offset = _update_offsets(element["elements"], offset)
+            if "bits" in element["elements"][0]:
+                offset += element["type_size"]
         elif "array" in element:
             for array_val in element["array"]:
                 offset = _update_offsets(array_val["elements"], offset)
