@@ -62,6 +62,8 @@ def _update_access(elements, access):
             overwrite_access = access
         if "elements" in element:
             _update_access(element["elements"], access)
+            if "bits" in element["elements"][0]:
+                element["access"] = overwrite_access
         elif "array" in element:
             for array_val in element["array"]:
                 _update_access(array_val["elements"], access)
@@ -89,6 +91,12 @@ def _parse_elements_to_records(elements, mem_map=None, name=None):
         name = []
     for element in elements:
         if "elements" in element:
+            if "bits" in element["elements"][0]:
+                mem_map.append(deepcopy(element))
+                mem_map[-1].pop("elements")
+                name.append(element["name"])
+                mem_map[-1]["name"] = deepcopy(name)
+                name.pop()
             name.append(element["name"])
             _parse_elements_to_records(element["elements"], mem_map, name)
             name.pop()
@@ -103,9 +111,7 @@ def _parse_elements_to_records(elements, mem_map=None, name=None):
         else:
             mem_map.append(deepcopy(element))
             name.append(element["name"])
-
             mem_map[-1]["name"] = deepcopy(name)
-
             name.pop()
     return mem_map
 

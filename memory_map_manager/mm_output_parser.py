@@ -73,6 +73,7 @@ def parse_mem_map_to_access_c(mem_maps):
     for mem_map in deepcopy(mem_maps):
         a_str += "\nconst uint8_t %s_ACCESS[] = { \n" % mem_map['name'].upper()
         size = 0
+        map_size = 0
         for record in mem_map['records']:
             debug(record)
             if 'bit_offset' not in record:
@@ -84,9 +85,10 @@ def parse_mem_map_to_access_c(mem_maps):
                         a_str += ", "
                     a_str += "0x%02X" % record["access"]
                     size += 1
+                    map_size += 1
                 if record != mem_map['records'][-1]:
                     a_str += ","
                 a_str += " /* {} */\n".format('_'.join(record["name"]))
         a_str = a_str.rstrip(',')
-        a_str += "/* total size %d */\n};" % size
+        a_str += "/* total size %d */\n};" % map_size
     return a_str

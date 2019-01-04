@@ -112,6 +112,16 @@
                 },
                 {
                     "access": 1,
+                    "name": [
+                        "an_element",
+                        "using_bitfield_type_element"
+                    ],
+                    "offset": 51,
+                    "type": "example_bitfield_t",
+                    "type_size": 1
+                },
+                {
+                    "access": 1,
                     "bit_offset": 0,
                     "bits": 1,
                     "name": [
@@ -239,6 +249,15 @@
                     "total_size": 11,
                     "type": "uint8_t",
                     "type_size": 1
+                },
+                {
+                    "access": 1,
+                    "name": [
+                        "longer_bitfield"
+                    ],
+                    "offset": 100,
+                    "type": "longer_bitfield_t",
+                    "type_size": 2
                 },
                 {
                     "access": 1,
