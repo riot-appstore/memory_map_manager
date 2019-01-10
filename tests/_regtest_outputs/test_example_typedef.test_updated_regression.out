@@ -129,7 +129,8 @@
                         "using_bitfield_type_element",
                         "basic_enable_reg"
                     ],
-                    "offset": 51
+                    "offset": 51,
+                    "type_size": 1
                 },
                 {
                     "access": 1,
@@ -140,7 +141,8 @@
                         "using_bitfield_type_element",
                         "example_prescale_reg"
                     ],
-                    "offset": 51
+                    "offset": 51,
+                    "type_size": 1
                 },
                 {
                     "access": 1,
@@ -267,7 +269,8 @@
                         "longer_bitfield",
                         "basic_enable_reg"
                     ],
-                    "offset": 100
+                    "offset": 100,
+                    "type_size": 2
                 },
                 {
                     "access": 1,
@@ -277,7 +280,8 @@
                         "longer_bitfield",
                         "example_prescale_reg"
                     ],
-                    "offset": 100
+                    "offset": 100,
+                    "type_size": 2
                 },
                 {
                     "access": 1,
@@ -287,7 +291,8 @@
                         "longer_bitfield",
                         "same_offset_over_8_bit_offset"
                     ],
-                    "offset": 100
+                    "offset": 100,
+                    "type_size": 2
                 },
                 {
                     "access": 1,

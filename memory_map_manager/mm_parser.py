@@ -96,10 +96,17 @@ def _parse_elements_to_records(elements, mem_map=None, name=None):
                 mem_map[-1].pop("elements")
                 name.append(element["name"])
                 mem_map[-1]["name"] = deepcopy(name)
+                for bitfield in element["elements"]:
+                    mem_map.append(deepcopy(bitfield))
+                    mem_map[-1]["type_size"] = element["type_size"]
+                    name.append(bitfield["name"])
+                    mem_map[-1]["name"] = deepcopy(name)
+                    name.pop()
                 name.pop()
-            name.append(element["name"])
-            _parse_elements_to_records(element["elements"], mem_map, name)
-            name.pop()
+            else:
+                name.append(element["name"])
+                _parse_elements_to_records(element["elements"], mem_map, name)
+                name.pop()
         elif "array" in element:
             name.append(element["name"])
             for i, array_val in enumerate(element["array"]):
