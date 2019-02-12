@@ -13,7 +13,7 @@ def _metadata_to_h_intro(config):
     metadata = config['metadata']
     intro_str = "/**\n"
     intro_str += "************************************************************"
-    intro_str += "******************\n"
+    intro_str += "*******************\n"
     intro_str += " * @file    : {}_typedef.h\n".format(metadata["app_name"])
     intro_str += " * @author  : {}\n".format(metadata["author"])
     intro_str += " * @version : {}\n".format(metadata["version"])
@@ -22,6 +22,8 @@ def _metadata_to_h_intro(config):
         intro_str += " * @brief : {}\n".format(metadata["description"])
     intro_str += " * @addtogroup : {}_Typedefs\n".format(metadata["app_name"])
     intro_str += " * @{\n"
+    intro_str += "************************************************************"
+    intro_str += "*******************\n"
     intro_str += " */\n\n"
     intro_str += "#ifndef %s_TYPEDEF_H\n" % (metadata["app_name"].upper())
     intro_str += "#define %s_TYPEDEF_H\n" % (metadata["app_name"].upper())
