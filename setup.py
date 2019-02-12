@@ -15,7 +15,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="memory_map_manager",
-    version="0.0.6",
+    version="0.0.7",
     author="Kevin Weiss",
     author_email="kevin.weiss@haw-hamburg.de",
     license="MIT",

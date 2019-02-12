@@ -12,17 +12,17 @@ from copy import deepcopy
 def _metadata_to_h_intro(config):
     metadata = config['metadata']
     intro_str = "/**\n"
-    intro_str += "************************************************************"
+    intro_str += " ***********************************************************"
     intro_str += "*******************\n"
-    intro_str += " * @file    : {}_typedef.h\n".format(metadata["app_name"])
-    intro_str += " * @author  : {}\n".format(metadata["author"])
-    intro_str += " * @version : {}\n".format(metadata["version"])
-    intro_str += " * @date : {}\n".format(datetime.date.today())
+    intro_str += " * @file       : {}_typedef.h\n".format(metadata["app_name"])
+    intro_str += " * @author     : {}\n".format(metadata["author"])
+    intro_str += " * @version    : {}\n".format(metadata["version"])
+    intro_str += " * @date       : {}\n".format(datetime.date.today())
     if "description" in metadata:
-        intro_str += " * @brief : {}\n".format(metadata["description"])
+        intro_str += " * @brief      : {}\n".format(metadata["description"])
     intro_str += " * @addtogroup : {}_Typedefs\n".format(metadata["app_name"])
     intro_str += " * @{\n"
-    intro_str += "************************************************************"
+    intro_str += " ***********************************************************"
     intro_str += "*******************\n"
     intro_str += " */\n\n"
     intro_str += "#ifndef %s_TYPEDEF_H\n" % (metadata["app_name"].upper())
