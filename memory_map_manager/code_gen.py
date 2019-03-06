@@ -14,6 +14,10 @@ from .td_parser import update_typedefs
 from .td_output_parser import parse_typedefs_to_h
 from .mm_parser import parse_typedefs_to_mem_maps
 from .mm_output_parser import parse_mem_map_to_csv, parse_mem_map_to_access_c
+from .mm_output_parser import parse_mem_map_to_defaults_h
+from .mm_output_parser import parse_mem_map_to_map_v_c
+from .mm_output_parser import parse_mem_map_to_map_v_h
+from .mm_output_parser import parse_mem_map_to_defaults_c
 from .config_import_export import import_config, export_config
 
 LOG_HANDLER = logging.StreamHandler()
@@ -90,16 +94,31 @@ def main():
         output_dir = os.path.join(os.getcwd(), args.output_dir)
 
     filename = config['metadata']['app_name']
-    with open(os.path.join(output_dir, filename + '_typedef.h'), "w") as out_f:
-        out_f.write(parse_typedefs_to_h(config))
+    if_version = config['metadata']['version'].replace('.', '_')
+    with open(os.path.join(output_dir, filename + '_typedef.h'), "w") as opf:
+        opf.write(parse_typedefs_to_h(config))
 
     for mem_map in config['mem_maps']:
-        with open(os.path.join(output_dir,
-                               mem_map['name'] + '.csv'), "w") as out_f:
-            out_f.write(parse_mem_map_to_csv(mem_map))
+        csv_fn = '{}_{}_{}.csv'.format(filename, mem_map['name'], if_version)
+        with open(os.path.join(output_dir, csv_fn), "w") as opf:
+            opf.write(parse_mem_map_to_csv(mem_map))
+        csv_fn = '{}_{}.csv'.format(filename, mem_map['name'])
+        with open(os.path.join(output_dir, csv_fn), "w") as opf:
+            opf.write(parse_mem_map_to_csv(mem_map))
 
-    with open(os.path.join(output_dir, 'access.c'), "w") as out_f:
-        out_f.write(parse_mem_map_to_access_c(config['mem_maps']))
+    with open(os.path.join(output_dir, filename + '_access.c'), "w") as opf:
+        opf.write(parse_mem_map_to_access_c(config))
+
+    with open(os.path.join(output_dir, filename + '_map.c'), "w") as opf:
+        opf.write(parse_mem_map_to_map_v_c(config))
+    with open(os.path.join(output_dir, filename + '_map.h'), "w") as opf:
+        opf.write(parse_mem_map_to_map_v_h(config))
+
+    with open(os.path.join(output_dir, filename + '_defaults.h'), "w") as opf:
+        opf.write(parse_mem_map_to_defaults_h(config))
+
+    with open(os.path.join(output_dir, filename + '_defaults.c'), "w") as opf:
+        opf.write(parse_mem_map_to_defaults_c(config))
 
 
 if __name__ == "__main__":
