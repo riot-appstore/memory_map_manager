@@ -39,6 +39,10 @@ PARSER.add_argument("--output_dir", "-odir",
                     help='The path for all generated output',
                     default='')
 
+PARSER.add_argument("--output_csv", "-ocsv",
+                    help='The path for the csv memory map',
+                    default='')
+
 PARSER.add_argument("--reset_config", "-rcfg",
                     help='Dont copy previous non-generated mem map values',
                     action='store_true',
@@ -89,9 +93,17 @@ def main():
         return
 
     if args.output_dir.startswith('/'):
-        output_dir = args.config_path
+        output_dir = args.output_dir
     else:
         output_dir = os.path.join(os.getcwd(), args.output_dir)
+
+    if args.output_csv:
+        if args.output_csv.startswith('/'):
+            output_csv = args.output_csv
+        else:
+            output_csv = os.path.join(os.getcwd(), args.output_csv)
+    else:
+        output_csv = output_dir
 
     filename = config['metadata']['app_name']
     if_version = config['metadata']['version'].replace('.', '_')
@@ -100,10 +112,7 @@ def main():
 
     for mem_map in config['mem_maps']:
         csv_fn = '{}_{}_{}.csv'.format(filename, mem_map['name'], if_version)
-        with open(os.path.join(output_dir, csv_fn), "w") as opf:
-            opf.write(parse_mem_map_to_csv(mem_map))
-        csv_fn = '{}_{}.csv'.format(filename, mem_map['name'])
-        with open(os.path.join(output_dir, csv_fn), "w") as opf:
+        with open(os.path.join(output_csv, csv_fn), "w") as opf:
             opf.write(parse_mem_map_to_csv(mem_map))
 
     with open(os.path.join(output_dir, filename + '_access.c'), "w") as opf:

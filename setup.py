@@ -8,14 +8,26 @@
     Setup file for memory_map_manager.
 """
 from setuptools import setup, find_packages
+import re
+
 
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 
+def get_property(prop, project):
+    """Gets the version from __init__"""
+    result = re.search(r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop),
+                       open(project + '/__init__.py').read())
+    return result.group(1)
+
+
+PROJECT_NAME = 'memory_map_manager'
+
+
 setup(
-    name="memory_map_manager",
-    version="0.0.8",
+    name=PROJECT_NAME,
+    version=get_property('__version__', PROJECT_NAME),
     author="Kevin Weiss",
     author_email="kevin.weiss@haw-hamburg.de",
     license="MIT",

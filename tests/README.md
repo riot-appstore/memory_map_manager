@@ -5,7 +5,8 @@ python3 -m memory_map_manager.code_gen -cfgp example_typedef.json -ocfg example_
 
 Testing a package locally
 ```
-sudo pip3 uninstall memory_map_manager
+sudo pip3 uninstall -y memory_map_manager
+rm -rf sdist
 python3 setup.py sdist
 sudo pip3 install dist/memory_map_manager-x.x.x.tar.gz
 ```

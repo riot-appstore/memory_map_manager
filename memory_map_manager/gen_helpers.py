@@ -6,7 +6,7 @@
 # SPDX-License-Identifier:    MIT
 """This module contains helpers for the code generator"""
 import datetime
-
+from memory_map_manager import __version__
 
 PRIM_TYPES = {'uint8_t': 1, 'int8_t': 1, 'uint16_t': 2, 'int16_t': 2,
               'uint32_t': 4, 'int32_t': 4, 'uint64_t': 8, 'int64_t': 8,
@@ -33,7 +33,8 @@ def get_header(metadata, filename, group_suffix):
         intro_str += " * @brief     {}\n".format(metadata["description"])
     if not filename.endswith('.h'):
         intro_str += " * @}\n"
-    intro_str += " * @details   Generated from the memory map manager\n"
+    intro_str += " * @details   Generated from the memory map manager"
+    intro_str += " version {}\n".format(__version__)
     intro_str += " ***********************************************************"
     intro_str += "*******************\n"
     intro_str += " */\n\n"

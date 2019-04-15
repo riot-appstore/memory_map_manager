@@ -5,6 +5,7 @@
 # file LICENSE in the top level directory for more details.
 # SPDX-License-Identifier:    MIT
 """This module generates output files based on memory maps."""
+import re
 from copy import deepcopy
 from logging import debug, info
 from .gen_helpers import get_header, try_key, PRIM_ENUM_LIST, PRIM_TYPES
@@ -76,7 +77,8 @@ def _records_to_string_array(key_name, mem_map, print_val=True):
         return "extern " + arr_str
     arr_str += " = {"
     for record in mem_map['records']:
-        arr_str += ' \"{}\",'.format('.'.join(record[key_name]))
+        name = ' \"{}\",'.format('.'.join(record[key_name]))
+        arr_str += re.sub(r'\.(\d+)', r'[\1]', name)
     arr_str = arr_str.rstrip(',')
     arr_str += "}}; /** < {} const array */\n".format(key_name)
     return arr_str
@@ -181,12 +183,15 @@ def parse_mem_map_to_defaults_h(config):
     d_str += "--------------*/\n"
     for mem_map in deepcopy(config['mem_maps']):
         defaults = _parse_defaults(mem_map)
+        name = mem_map['name']
         for default in defaults:
             d_str += "/** @brief default for "
             d_str += "{}: {} */\n".format(default['struct_name'],
                                           default['desc'])
             d_str += "#define {} {}\n".format(default['def_name'],
                                               default['value'])
+        d_str += "\n/** @brief Assign defaults for {} */\n".format(name)
+        d_str += "void init_defaults_{0}({0} *init);\n".format(name)
     d_str += "\n#endif /* %s_DEFAULTS_H */\n" % (metadata["app_name"].upper())
     d_str += "/** @} */\n"
     return d_str
