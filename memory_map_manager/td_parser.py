@@ -36,8 +36,20 @@ def _update_bitfields(config):
                              format(bitfield['type_name'],
                                     bit_offset,
                                     bitfield['type']))
+        elif bit_offset != bitfield['type_size']*8:
+            _fill_bitfield_res_element(bitfield, bit_offset)
     _assert_val_is_unique(config['bitfields'], 'type_name')
     debug("bitfields are now:\n%s", pformat(config['bitfields']))
+
+
+def _fill_bitfield_res_element(bitfield, bit_offset):
+    res = {'name': 'res',
+           'bits': (bitfield['type_size'] * 8) - bit_offset,
+           'bit_offset': bit_offset,
+           'description': 'Reserved bits'}
+    bitfield['elements'].append(res)
+    debug("Adding bitfield reserved element to %r of size %r",
+          bitfield['type_name'], res['bits'])
 
 
 def _fill_res_element(typedef, total_byte):

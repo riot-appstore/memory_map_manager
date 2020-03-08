@@ -53,6 +53,9 @@ def parse_mem_map_to_csv(mem_map):
     fields = _find_unique_keys(local_mem_map['records'])
     csv_str = ','.join(fields)
     for record in local_mem_map['records']:
+        if 'bits' not in record:
+            if record['type'] not in PRIM_TYPES:
+                continue
         csv_str += '\n'
         name = _get_name(record['name'])
         for field in fields:
@@ -77,9 +80,9 @@ def _records_to_string_array(key_name, mem_map, print_val=True):
         return "extern " + arr_str
     arr_str += " = {"
     for record in mem_map['records']:
-        name = ' \"{}\",'.format('.'.join(record[key_name]))
+        name = '\"{}\",\n'.format('.'.join(record[key_name]))
         arr_str += re.sub(r'\.(\d+)', r'[\1]', name)
-    arr_str = arr_str.rstrip(',')
+    arr_str = arr_str.rstrip(',\n')
     arr_str += "}}; /** < {} const array */\n".format(key_name)
     return arr_str
 
@@ -106,8 +109,8 @@ def _records_to_int_array(key_name, mem_map, print_val=True):
         return "extern " + arr_str
     arr_str += " = {"
     for record in mem_map['records']:
-        arr_str += ' {},'.format(record[key_name])
-    arr_str = arr_str.rstrip(',')
+        arr_str += '{},\n'.format(record[key_name])
+    arr_str = arr_str.rstrip(',\n')
     arr_str += "}}; /** < {} const array */\n".format(key_name)
     return arr_str
 
@@ -120,7 +123,7 @@ def _records_type_to_array(mem_map, print_val=True):
     arr_str += " = {"
     for record in mem_map['records']:
         try:
-            arr_str += ' {},'.format(PRIM_ENUM_LIST.index(record['type']))
+            arr_str += '{},\n'.format(PRIM_ENUM_LIST.index(record['type']))
         except (ValueError, KeyError):
             backup_type = 'uint8_t'
             if record['type_size'] == 2:
@@ -129,8 +132,8 @@ def _records_type_to_array(mem_map, print_val=True):
                 backup_type = 'uint32_t'
             elif record['type_size'] == 8:
                 backup_type = 'uint64_t'
-            arr_str += ' {},'.format(PRIM_ENUM_LIST.index(backup_type))
-    arr_str = arr_str.rstrip(',')
+            arr_str += '{},\n'.format(PRIM_ENUM_LIST.index(backup_type))
+    arr_str = arr_str.rstrip(',\n')
     arr_str += "}; /** < type_name const array */\n"
 
     return arr_str
@@ -145,7 +148,7 @@ def _parse_defaults(mem_map):
             default['def_name'] = default['def_name'].upper()
             default['def_name'] = default['def_name'].replace('.', '_')
             default['value'] = int(record['default'])
-            default['struct_name'] = ".".join(record["name"])
+            default['struct_name'] = _get_name(record['name'])
             default['desc'] = try_key(record, 'description')
             defaults.append(default)
     return defaults
@@ -210,15 +213,15 @@ def parse_mem_map_to_map_v_c(config):
 """.format(app_name)
     kw_str += "const char* const {}_TYPE_NAME[] = {{".format(app_name.upper())
     for prim_enum_name in PRIM_ENUM_LIST:
-        kw_str += ' \"{}\",'.format(prim_enum_name)
-    kw_str = kw_str.rstrip(',')
-    kw_str += " }; /** < type_name enum */\n"
+        kw_str += '\"{}\",\n'.format(prim_enum_name)
+    kw_str = kw_str.rstrip(',\n')
+    kw_str += "}; /** < type_name enum */\n\n"
 
     kw_str += "const uint8_t  {}_TYPE_SIZE[] = {{".format(app_name.upper())
     for prim_enum_name in PRIM_ENUM_LIST:
-        kw_str += ' {},'.format(PRIM_TYPES[prim_enum_name])
-    kw_str = kw_str.rstrip(',')
-    kw_str += " }; /** <  type_size const array */\n\n"
+        kw_str += '{},\n'.format(PRIM_TYPES[prim_enum_name])
+    kw_str = kw_str.rstrip(',\n')
+    kw_str += "}; /** <  type_size const array */\n\n"
 
     for mem_map in deepcopy(config['mem_maps']):
         kw_str += '{}\n'.format(_records_to_string_array('name', mem_map))

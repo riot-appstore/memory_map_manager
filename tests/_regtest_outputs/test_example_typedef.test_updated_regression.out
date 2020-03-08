@@ -11,6 +11,12 @@
                     "bit_offset": 1,
                     "bits": 5,
                     "name": "example_prescale_reg"
+                },
+                {
+                    "bit_offset": 6,
+                    "bits": 2,
+                    "description": "Reserved bits",
+                    "name": "res"
                 }
             ],
             "type": "uint8_t",
@@ -33,6 +39,12 @@
                     "bit_offset": 13,
                     "bits": 1,
                     "name": "same_offset_over_8_bit_offset"
+                },
+                {
+                    "bit_offset": 14,
+                    "bits": 2,
+                    "description": "Reserved bits",
+                    "name": "res"
                 }
             ],
             "type": "uint16_t",
@@ -140,6 +152,19 @@
                         "an_element",
                         "using_bitfield_type_element",
                         "example_prescale_reg"
+                    ],
+                    "offset": 51,
+                    "type_size": 1
+                },
+                {
+                    "access": 1,
+                    "bit_offset": 6,
+                    "bits": 2,
+                    "description": "Reserved bits",
+                    "name": [
+                        "an_element",
+                        "using_bitfield_type_element",
+                        "res"
                     ],
                     "offset": 51,
                     "type_size": 1
@@ -296,6 +321,18 @@
                 },
                 {
                     "access": 1,
+                    "bit_offset": 14,
+                    "bits": 2,
+                    "description": "Reserved bits",
+                    "name": [
+                        "longer_bitfield",
+                        "res"
+                    ],
+                    "offset": 100,
+                    "type_size": 2
+                },
+                {
+                    "access": 1,
                     "name": [
                         "other_element"
                     ],
@@ -388,6 +425,12 @@
                             "bit_offset": 1,
                             "bits": 5,
                             "name": "example_prescale_reg"
+                        },
+                        {
+                            "bit_offset": 6,
+                            "bits": 2,
+                            "description": "Reserved bits",
+                            "name": "res"
                         }
                     ],
                     "name": "using_bitfield_type_element",
@@ -494,6 +537,14 @@
                                     "bit_offset": 1,
                                     "bits": 5,
                                     "name": "example_prescale_reg",
+                                    "offset": 51
+                                },
+                                {
+                                    "access": 1,
+                                    "bit_offset": 6,
+                                    "bits": 2,
+                                    "description": "Reserved bits",
+                                    "name": "res",
                                     "offset": 51
                                 }
                             ],
@@ -625,6 +676,14 @@
                             "bit_offset": 13,
                             "bits": 1,
                             "name": "same_offset_over_8_bit_offset",
+                            "offset": 100
+                        },
+                        {
+                            "access": 1,
+                            "bit_offset": 14,
+                            "bits": 2,
+                            "description": "Reserved bits",
+                            "name": "res",
                             "offset": 100
                         }
                     ],
