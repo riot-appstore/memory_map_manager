@@ -17,27 +17,30 @@ PRIM_ENUM_LIST = ['uint8_t', 'int8_t', 'uint16_t', 'int16_t',
                   'char', 'float', 'double']
 
 
-def get_header(metadata, filename, group_suffix):
-    """Parses a generic .c or .h header"""
-    intro_str = "/**\n"
-    intro_str += " ***********************************************************"
-    intro_str += "*******************\n"
-    intro_str += " * @addtogroup {}_{}\n".format(metadata["app_name"],
-                                                 group_suffix)
-    intro_str += " * @{\n"
-    intro_str += " * @file      {}_{}\n".format(metadata["app_name"], filename)
-    intro_str += " * @author    {}\n".format(metadata["author"])
-    intro_str += " * @version   {}\n".format(metadata["version"])
-    intro_str += " * @date      {}\n".format(datetime.date.today())
+def get_header(metadata, filename, group_suffix, date_in_header=False):
+    """Parse a generic .c or .h header."""
+    intro_str = ""
+    intro_str += """\
+/**
+ *****************************************************************************"
+ * @addtogroup {0}_{1}
+ * @{{
+ * @file      {0}_{2}
+ * @author    {3}
+ * @version   {4}
+""".format(metadata["app_name"], group_suffix, filename, metadata["author"],
+           metadata["version"])
+    if date_in_header:
+        intro_str += "* @date      {}\n".format(datetime.date.today())
     if "description" in metadata:
         intro_str += " * @brief     {}\n".format(metadata["description"])
     if not filename.endswith('.h'):
         intro_str += " * @}\n"
-    intro_str += " * @details   Generated from the memory map manager"
-    intro_str += " version {}\n".format(__version__)
-    intro_str += " ***********************************************************"
-    intro_str += "*******************\n"
-    intro_str += " */\n\n"
+    intro_str += """\
+ * @details   Generated from the memory map manager version {}
+ *****************************************************************************"
+ */
+""".format(__version__)
 
     if filename.endswith('.h'):
         h_str = filename.upper().replace('.', '_')
@@ -48,7 +51,7 @@ def get_header(metadata, filename, group_suffix):
 
 
 def try_key(dict_to_try, key_for_dict):
-    """Either returns key value or empty string"""
+    """Either returns key value or empty string."""
     if key_for_dict not in dict_to_try:
         return ''
     return dict_to_try[key_for_dict]

@@ -36,7 +36,7 @@ def _update_bitfields(config):
                              format(bitfield['type_name'],
                                     bit_offset,
                                     bitfield['type']))
-        elif bit_offset != bitfield['type_size']*8:
+        if bit_offset != bitfield['type_size']*8:
             _fill_bitfield_res_element(bitfield, bit_offset)
     _assert_val_is_unique(config['bitfields'], 'type_name')
     debug("bitfields are now:\n%s", pformat(config['bitfields']))
@@ -91,7 +91,7 @@ def _update_typedefs_sizes(config, type_sizes):
 
 
 def update_typedefs(config):
-    """Fills in any missing/calculatable information of typedefs."""
+    """Fill in any missing/calculable information of typedefs."""
     info("Updating typedefs from config")
     type_sizes = deepcopy(PRIM_TYPES)
     _update_bitfields(config)

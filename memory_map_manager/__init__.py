@@ -1,1 +1,2 @@
-__version__ = "0.0.10"
+"""memory_map_manager package."""
+__version__ = "0.1.0"

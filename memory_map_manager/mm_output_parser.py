@@ -47,7 +47,7 @@ def _get_name(names):
 
 
 def parse_mem_map_to_csv(mem_map):
-    """Parses a memory map to a csv table string."""
+    """Parse a memory map to a csv table string."""
     info("Parsing memory map to csv string")
     local_mem_map = deepcopy(mem_map)
     fields = _find_unique_keys(local_mem_map['records'])
@@ -69,6 +69,7 @@ def parse_mem_map_to_csv(mem_map):
                 csv_str += str(record[field]).replace(',', '","')
             csv_str += ','
         csv_str = csv_str[:-1]
+    csv_str += '\n'
     return csv_str
 
 
@@ -154,14 +155,14 @@ def _parse_defaults(mem_map):
     return defaults
 
 
-def parse_mem_map_to_defaults_c(config):
+def parse_mem_map_to_defaults_c(config, date_in_header=False):
     """Parses memory map defaults if any to defines in header file"""
     metadata = config['metadata']
-    d_str = get_header(metadata, 'defaults.c', 'MMM')
+    d_str = get_header(metadata, 'defaults.c', 'MMM', date_in_header)
     d_str += "/* Includes ---------------------------------------------------"
     d_str += "---------------*/\n"
     d_str += "#include <stdint.h>\n\n"
-    d_str += "#include \"{}_typedef.h\"\n\n".format(metadata['app_name'])
+    d_str += "#include \"{}_typedef.h\"\n".format(metadata['app_name'])
     d_str += "#include \"{}_defaults.h\"\n\n".format(metadata['app_name'])
     d_str += "/* Functions ---------------------------------------------------"
     d_str += "--------------*/\n"
@@ -178,10 +179,10 @@ def parse_mem_map_to_defaults_c(config):
     return d_str
 
 
-def parse_mem_map_to_defaults_h(config):
+def parse_mem_map_to_defaults_h(config, date_in_header=False):
     """Parses memory map defaults to initiate in a c file"""
     metadata = config['metadata']
-    d_str = get_header(metadata, 'defaults.h', 'MMM')
+    d_str = get_header(metadata, 'defaults.h', 'MMM', date_in_header)
     d_str += "/* Defines -----------------------------------------------------"
     d_str += "--------------*/\n"
     for mem_map in deepcopy(config['mem_maps']):
@@ -200,13 +201,14 @@ def parse_mem_map_to_defaults_h(config):
     return d_str
 
 
-def parse_mem_map_to_map_v_c(config):
+def parse_mem_map_to_map_v_c(config, date_in_header=False):
     """Parses memory map to c arrays with values"""
-    kw_str = get_header(config['metadata'], 'map.c', 'MMM')
+    kw_str = get_header(config['metadata'], 'map.c', 'MMM', date_in_header)
     app_name = config['metadata']["app_name"]
     kw_str += """\
 /* Includes ----------------------------------------------------------------*/
 #include <stdint.h>
+
 #include \"{}_map.h\"
 
 /* Global variables --------------------------------------------------------*/
@@ -233,17 +235,17 @@ def parse_mem_map_to_map_v_c(config):
     return kw_str
 
 
-def parse_mem_map_to_map_v_h(config):
-    """Parses memory map to h arrays with values"""
-    kw_str = get_header(config['metadata'], 'map.h', 'MMM')
+def parse_mem_map_to_map_v_h(config, date_in_header=False):
+    """Parse memory map to h arrays with values."""
+    kw_str = get_header(config['metadata'], 'map.h', 'MMM', date_in_header)
     vers = config['metadata']['version'].split(".")
     kw_str += """\
-/* Defines -----------------------------------------------------------------*/
+/* Defines ----------------------------------------------------------------- */
 #define IF_VERSION_MAJOR {0} /**< Major version of interface */
 #define IF_VERSION_MINOR {1} /**< Minor version of interface */
 #define IF_VERSION_PATCH {2} /**< Patch version of interface */
 
-/* Global variables --------------------------------------------------------*/
+/* Global variables -------------------------------------------------------- */
 extern const char* const {3}_TYPE_NAME[]; /** < type_name enum */
 extern const uint8_t  {3}_TYPE_SIZE[]; /** <  type_size const array */
 
@@ -272,14 +274,15 @@ extern const uint8_t  {3}_TYPE_SIZE[]; /** <  type_size const array */
     return kw_str
 
 
-def parse_mem_map_to_access_c(config):
-    """Parses access registers based on memory map to a .c string."""
-    a_str = get_header(config['metadata'], 'access.c', 'MMM')
-    a_str += "/* Includes -------------------------------------------------"
-    a_str += "-----------------*/\n"
-    a_str += "#include \"app_access.h\"\n\n"
-    a_str += "/* Global variables -------------------------------------------"
-    a_str += "---------------*/\n"
+def parse_mem_map_to_access_c(config, date_in_header=False):
+    """Parse access registers based on memory map to a .c string."""
+    a_str = get_header(config['metadata'], 'access.c', 'MMM', date_in_header)
+    a_str += """\
+/* Includes -----------------------------------------------------------------*/
+#include <stdio.h>
+
+/* Global variables ---------------------------------------------------------*/
+"""
     for mem_map in deepcopy(config['mem_maps']):
         a_str += "const uint8_t %s_ACCESS[] = { \n" % mem_map['name'].upper()
         size = 0
