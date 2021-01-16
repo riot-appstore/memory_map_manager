@@ -5,7 +5,7 @@
  * @file      example_typedef.h
  * @author    Kevin Weiss
  * @version   0.00.00
- * @details   Generated from the memory map manager version 0.1.0
+ * @details   Generated from the memory map manager version 1.0.0
  *****************************************************************************"
  */
 #ifndef EXAMPLE_TYPEDEF_H
@@ -93,7 +93,7 @@ typedef union {
  * @author    Kevin Weiss
  * @version   0.00.00
  * @}
- * @details   Generated from the memory map manager version 0.1.0
+ * @details   Generated from the memory map manager version 1.0.0
  *****************************************************************************"
  */
 /* Includes -----------------------------------------------------------------*/
@@ -132,7 +132,7 @@ const uint8_t SIMPLE_MEM_MAP_T_ACCESS[] = {
  * @author    Kevin Weiss
  * @version   0.00.00
  * @}
- * @details   Generated from the memory map manager version 0.1.0
+ * @details   Generated from the memory map manager version 1.0.0
  *****************************************************************************"
  */
 /* Includes ----------------------------------------------------------------*/
@@ -346,7 +346,7 @@ const uint8_t SIMPLE_MEM_MAP_T_BITS[] = {0,
  * @file      example_map.h
  * @author    Kevin Weiss
  * @version   0.00.00
- * @details   Generated from the memory map manager version 0.1.0
+ * @details   Generated from the memory map manager version 1.0.0
  *****************************************************************************"
  */
 #ifndef EXAMPLE_MAP_H
@@ -386,7 +386,7 @@ extern const uint8_t SIMPLE_MEM_MAP_T_BITS[]; /** < bits const array */
  * @file      example_defaults.h
  * @author    Kevin Weiss
  * @version   0.00.00
- * @details   Generated from the memory map manager version 0.1.0
+ * @details   Generated from the memory map manager version 1.0.0
  *****************************************************************************"
  */
 #ifndef EXAMPLE_DEFAULTS_H
@@ -412,7 +412,7 @@ void init_defaults_simple_mem_map_t(simple_mem_map_t *init);
  * @author    Kevin Weiss
  * @version   0.00.00
  * @}
- * @details   Generated from the memory map manager version 0.1.0
+ * @details   Generated from the memory map manager version 1.0.0
  *****************************************************************************"
  */
 /* Includes ------------------------------------------------------------------*/
