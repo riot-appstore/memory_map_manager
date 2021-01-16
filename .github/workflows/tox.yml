@@ -33,7 +33,7 @@ jobs:
     - name: Publish package to PyPI
       uses: pypa/gh-action-pypi-publish@master
       if: >-
-        matrix.python-version == 3.8 &&
+        matrix.python-version == 3.9 &&
         github.event_name == 'push' &&
         startsWith(github.event.ref, 'refs/tags')
       with:
