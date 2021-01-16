@@ -4,7 +4,7 @@
 # This file is subject to the terms and conditions of the MIT License. See the
 # file LICENSE in the top level directory for more details.
 # SPDX-License-Identifier:    MIT
-"""This module handles parsing of typedefs and creating outputs"""
+"""This module handles parsing of typedefs and creating outputs."""
 import os
 import argparse
 import logging
@@ -28,32 +28,37 @@ LOG_LEVELS = ('debug', 'info', 'warning', 'error', 'fatal', 'critical')
 
 PARSER = argparse.ArgumentParser()
 
-PARSER.add_argument("--config_path", "-cfgp",
+PARSER.add_argument("--config-path", "-P",
                     help='The path to the config file or directory',
                     default='')
 
-PARSER.add_argument("--output_config", "-ocfg",
+PARSER.add_argument("--output-config", "-c",
                     help='The path and name of the output config file')
 
-PARSER.add_argument("--output_dir", "-odir",
+PARSER.add_argument("--output-dir", "-D",
                     help='The path for all generated output',
                     default='')
 
-PARSER.add_argument("--output_csv", "-ocsv",
+PARSER.add_argument("--output-csv", "-o",
                     help='The path for the csv memory map',
                     default='')
 
-PARSER.add_argument("--reset_config", "-rcfg",
-                    help='Dont copy previous non-generated mem map values',
+PARSER.add_argument("--reset-config", "-r",
+                    help='Do not copy previous non-generated mem map values',
                     action='store_true',
                     default=False)
 
-PARSER.add_argument("--only_update_config", "-ouc",
+PARSER.add_argument("--only-update-config", "-u",
                     help='Only updates config file without generating files',
                     action='store_true',
                     default=False)
 
-PARSER.add_argument("--print_config", "-pcfg",
+PARSER.add_argument("--print-date", "-d",
+                    help='prints the date in all headers',
+                    action='store_true',
+                    default=False)
+
+PARSER.add_argument("--print-config", "-p",
                     help='Prints the config to stdout',
                     action='store_true',
                     default=False)
@@ -62,9 +67,8 @@ PARSER.add_argument('--loglevel', choices=LOG_LEVELS, default='info',
                     help='Python logger log level, defaults to "info"')
 
 
-def main():
-    """Parses typedefs and creates outputs"""
-
+def main():  # pylint: disable=too-many-branches
+    """Parse typedefs and create outputs."""
     args = PARSER.parse_args()
     if args.loglevel:
         loglevel = logging.getLevelName(args.loglevel.upper())
@@ -108,7 +112,7 @@ def main():
     filename = config['metadata']['app_name']
     if_version = config['metadata']['version'].replace('.', '_')
     with open(os.path.join(output_dir, filename + '_typedef.h'), "w") as opf:
-        opf.write(parse_typedefs_to_h(config))
+        opf.write(parse_typedefs_to_h(config, args.print_date))
 
     for mem_map in config['mem_maps']:
         csv_fn = '{}_{}_{}.csv'.format(filename, mem_map['name'], if_version)
@@ -116,18 +120,18 @@ def main():
             opf.write(parse_mem_map_to_csv(mem_map))
 
     with open(os.path.join(output_dir, filename + '_access.c'), "w") as opf:
-        opf.write(parse_mem_map_to_access_c(config))
+        opf.write(parse_mem_map_to_access_c(config, args.print_date))
 
     with open(os.path.join(output_dir, filename + '_map.c'), "w") as opf:
-        opf.write(parse_mem_map_to_map_v_c(config))
+        opf.write(parse_mem_map_to_map_v_c(config, args.print_date))
     with open(os.path.join(output_dir, filename + '_map.h'), "w") as opf:
-        opf.write(parse_mem_map_to_map_v_h(config))
+        opf.write(parse_mem_map_to_map_v_h(config, args.print_date))
 
     with open(os.path.join(output_dir, filename + '_defaults.h'), "w") as opf:
-        opf.write(parse_mem_map_to_defaults_h(config))
+        opf.write(parse_mem_map_to_defaults_h(config, args.print_date))
 
     with open(os.path.join(output_dir, filename + '_defaults.c'), "w") as opf:
-        opf.write(parse_mem_map_to_defaults_c(config))
+        opf.write(parse_mem_map_to_defaults_c(config, args.print_date))
 
 
 if __name__ == "__main__":

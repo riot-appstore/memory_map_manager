@@ -47,12 +47,12 @@ def _typedefs_to_c_struct(config):
     return c_str
 
 
-def parse_typedefs_to_h(config):
-    """Parses the typedef to a c header containing typedef structs."""
+def parse_typedefs_to_h(config, date_in_header=False):
+    """Parse the typedef to a c header containing typedef structs."""
     metadata = config['metadata']
     local_config = deepcopy(config)
     td_str = ""
-    td_str += get_header(metadata, 'typedef.h', 'MMM')
+    td_str += get_header(metadata, 'typedef.h', 'MMM', date_in_header)
     td_str += "\n"
     td_str += "#include <stdint.h>\n"
     td_str += "\n"

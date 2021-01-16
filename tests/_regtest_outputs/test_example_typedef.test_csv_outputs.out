@@ -1,0 +1,27 @@
+name,offset,total_size,type_size,type,description,access,array_size,bit_offset,bits,default,invalid,max,min
+an_element.basic_element,0,,1,uint8_t,,1,,,,,,,
+an_element.access_3_element,1,,4,uint32_t,,3,,,,,,,
+an_element.access_0_element,5,,4,uint32_t,,0,,,,,,,
+an_element.specified_element,9,,4,uint32_t,,1,,,,1,11,10,0
+an_element.array_element,13,36,4,int32_t,,1,9,,,,,,
+an_element.other_element,49,,2,uint16_t,,1,,,,,,,
+an_element.using_bitfield_type_element.basic_enable_reg,51,,1,,,1,,0,1,,,,
+an_element.using_bitfield_type_element.example_prescale_reg,51,,1,,,1,,1,5,,,,
+an_element.using_bitfield_type_element.res,51,,1,,Reserved bits,1,,6,2,,,,
+array_of_special_type[0].element_a,52,,1,uint8_t,,1,,,,,,,
+array_of_special_type[0].element_b_with_access_3,53,,4,uint32_t,,3,,,,,,,
+array_of_special_type[0].res,57,11,1,uint8_t,Reserved bytes,0,11,,,,,,
+array_of_special_type[1].element_a,68,,1,uint8_t,,1,,,,,,,
+array_of_special_type[1].element_b_with_access_3,69,,4,uint32_t,,3,,,,,,,
+array_of_special_type[1].res,73,11,1,uint8_t,Reserved bytes,0,11,,,,,,
+array_of_special_type[2].element_a,84,,1,uint8_t,,1,,,,,,,
+array_of_special_type[2].element_b_with_access_3,85,,4,uint32_t,,3,,,,,,,
+array_of_special_type[2].res,89,11,1,uint8_t,Reserved bytes,0,11,,,,,,
+longer_bitfield.basic_enable_reg,100,,2,,,1,,0,6,,,,
+longer_bitfield.example_prescale_reg,100,,2,,,1,,6,7,,,,
+longer_bitfield.same_offset_over_8_bit_offset,100,,2,,,1,,13,1,,,,
+longer_bitfield.res,100,,2,,Reserved bits,1,,14,2,,,,
+other_element,102,,2,uint16_t,,1,,,,,,,
+name,offset,type_size,type,description,access
+foo,0,1,uint8_t,Example of parameter not generated,1
+bar,1,1,uint8_t,,1

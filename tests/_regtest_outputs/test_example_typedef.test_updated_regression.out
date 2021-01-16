@@ -729,6 +729,7 @@
         {
             "elements": [
                 {
+                    "description": "foobar description",
                     "name": "foobar",
                     "type": "uint8_t",
                     "type_size": 1
