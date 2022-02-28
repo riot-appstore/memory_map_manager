@@ -39,9 +39,11 @@
             "records": [
                 {
                     "access": 1,
+                    "description": "foobar description",
                     "name": [
                         "an_element",
-                        "basic_element"
+                        "basic_element",
+                        "foobar"
                     ],
                     "offset": 0,
                     "type": "uint8_t",
@@ -359,7 +361,7 @@
             "elements": [
                 {
                     "name": "basic_element",
-                    "type": "uint8_t"
+                    "type": "non_generated_mm_t"
                 },
                 {
                     "access": 3,
@@ -451,9 +453,9 @@
         {
             "elements": [
                 {
+                    "description": "foobar description",
                     "name": "foobar",
-                    "type": "uint8_t",
-                    "description": "foobar description"
+                    "type": "uint8_t"
                 }
             ],
             "type_name": "non_generated_mm_t"

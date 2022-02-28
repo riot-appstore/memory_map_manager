@@ -11,6 +11,11 @@ from pprint import pformat
 from .gen_helpers import PRIM_TYPES
 
 
+class TDParser():
+
+    def __init__(config):
+
+
 def _assert_val_is_unique(dict_list, key_name):
     used_names = []
     for target_dict in dict_list:
@@ -64,12 +69,17 @@ def _fill_res_element(typedef, total_byte):
     debug("Adding reserved element to %r of size %r",
           typedef['type_name'], res['total_size'])
 
+repeat = True
 
 def _update_typedefs_sizes(config, type_sizes):
     info("Updating typedef sizes")
     for typedef in config['typedefs']:
         total_byte = 0
         for element in typedef['elements']:
+            if element["type"] not in type_sizes:
+                global repeat
+                repeat = True
+                continue
             element["type_size"] = type_sizes[element["type"]]
 
             if 'array_size' in element:
@@ -99,6 +109,11 @@ def update_typedefs(config):
         type_sizes[bitfield['type_name']] = bitfield['type_size']
 
     _update_typedefs_sizes(config, type_sizes)
-    for typedef in config['typedefs']:
-        type_sizes[typedef["type_name"]] = typedef["type_size"]
+    global repeat
+    while repeat:
+        repeat=False
+        for typedef in config['typedefs']:
+            type_sizes[typedef["type_name"]] = typedef["type_size"]
+
+
     _assert_val_is_unique(config['typedefs'], 'type_name')
