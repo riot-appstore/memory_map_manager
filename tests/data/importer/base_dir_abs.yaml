@@ -1,0 +1,5 @@
+files:
+  - importer/cfg_basic.yaml
+  - /home/runner/work/memory-map-manager/memory-map-manager/tests/data/importer/cfg_basic.yaml
+
+base: /home/runner/work/memory-map-manager/memory-map-manager/tests/data

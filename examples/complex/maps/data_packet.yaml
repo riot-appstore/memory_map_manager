@@ -1,0 +1,90 @@
+
+typedefs:
+  dev_desc_t:
+    read_permission:
+      - USER
+      - TECH
+      - ENG
+      - MANU
+    description: Device description use to identify device metadata.
+    elements:
+      - name: sn
+        description: Serial number of the device
+        write_permission: MANU
+        type: uint32_t
+      - name: fw_rev
+        description: Device firmware revision
+        type: uint8_t
+        array_size: 3
+      - name: dev_name
+        type: char
+        array_size: 16
+
+  sen_data_t:
+    read_permission:
+      - USER
+      - TECH
+      - ENG
+      - MANU
+    description: Info used to transmit to users or other devices.
+    volatile: True
+    elements:
+      - name: temperature
+        description: The temperature of the device.
+        # Value is in mC but we want to convert to C
+        scaling_factor: 0.001
+        type: int32_t
+        unit: C
+        print_format: :07.5F
+        min: -273.150
+        max: 1048.575
+        error_val: -999.999
+        default: -999.999
+      - name: tolerance
+        description: The 6 signal accuracy guarantee.
+        scaling_factor: 0.001
+        min: -3.000
+        max: 3.000
+        type: int16_t
+        print_format: :01.5F
+        unit: C
+      - name: signal_error
+        description: Percent deviation from the target exciting level.
+        type: int16_t
+        scaling_factor: 0.01
+        print_format: :03.1F
+        unit: percent
+      - name: drive_level
+        description: Percent of total drive to excite sensor.
+        type: uint8_t
+        scaling_factor: 100/255
+        print_format: :03.1F
+        unit: percent
+      - name: status
+      - name: update_rate
+        description: How fast the system updates readings.
+        type: uint8_t
+        unit: Hz
+      - name: update_num
+
+  com_packet_t:
+    read_permission:
+      - ENG
+      - MANU
+    description: The packet for interprocess communication
+    elements:
+      - name: header
+        description: Packet start header.
+        type: uint32_t
+      - name: sen_data
+        description: The live sensor data.
+        type: sen_data_t
+      - name: sen_data_crc
+        description: CRC for just the sensor data.
+        type: uint16_t
+      - name: dev_desc
+        description: The device description, only needs to be read once per powerup.
+        type: dev_desc_t
+      - name: crc
+        description: crc for the device description.
+        type: uint16_t

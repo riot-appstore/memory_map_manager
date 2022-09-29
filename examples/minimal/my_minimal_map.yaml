@@ -1,0 +1,11 @@
+metadata:
+  app_name: minimal
+
+typedefs:
+  type_1:
+    elements:
+      - record_1
+
+generated_maps:
+  map_1:
+    type: type_1

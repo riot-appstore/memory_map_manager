@@ -1,0 +1,49 @@
+typedefs:
+  com_settings_t:
+    read_permission:
+      - USER
+      - TECH
+      - ENG
+      - MANU
+    write_permission:
+      - USER
+      - TECH
+      - ENG
+      - MANU
+    elements:
+      - baudrate
+      - address
+
+  sensor_t:
+    elements:
+      - name: sen_data
+        description: The live sensor data.
+        type: sen_data_t
+      - name: dev_desc
+        description: The device description, only useful when plugged in.
+        type: dev_desc_t
+
+  map_t:
+    read_permission:
+      - TECH
+      - ENG
+      - MANU
+    description: The full sensor map.
+    elements:
+      - name: dev_desc
+        type: dev_desc_t
+      - name: data
+        type: sen_data_t
+      - name: measured_signal
+        type: measured_signal_t
+      - name: controller
+        type: controller_t
+      - name: excite_signal
+        type: excite_signal_t
+      - name: com_settings
+        type: com_settings_t
+
+generated_maps:
+  map:
+    default_map: True
+    type: map_t

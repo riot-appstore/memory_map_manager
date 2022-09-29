@@ -1,0 +1,29 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+#include <stdint.h>
+
+#include "mm_cc.h"
+{%- if typedef.use_defines %}
+#include "mm_defs.h"
+{%- endif -%}{%- if typedef.use_bitfields %}
+#include "mm_bitfields.h"
+{%- endif -%}{%- if typedef.use_enums %}
+#include "mm_enums.h"
+{%- endif -%}
+{%- for dep in typedef.deps %}
+#include "mm_typedefs_{{ dep }}.h"
+{%- endfor %}
+
+/* tyepdefs {{ '*' * (line_width - 18) }}*/
+MM_PACKED_START{{ "\n/** @brief " + typedef.description + " */" if typedef.description}}
+typedef union {
+    struct {
+{%- for elem in typedef.elements %}
+        {{ elem.resolved_type }} {{ elem.name }}{{ '[{}]'.format(elem.resolved_array_size) if elem.resolved_array_size}};{{ " /**< " + elem.description + " */" if elem.description }}
+{%- endfor %}
+    };
+    uint8_t data[{{ typedef.resolved_total_size }}]; /**< Array for padding */
+} {{ name }};
+MM_PACKED_END
+
+{% include "header_end.h.j2" -%}

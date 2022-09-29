@@ -1,73 +1,71 @@
-# memory_map_manager
-Manages memory map generation in C, python and documentation written in python3.
+# `memory_map_manager`
 
-# Installation
+The Memory Map Manager (MMM) generates code and documentation for embedded
+device parameters intended for external interfaces.
 
-## Install from pip
+## Motivation
+
+Embedded systems typically run on constrained systems, providing some sort
+of access to more powerful machines. A number of parameters can be read (such as
+a temperature from a sensor) or written (such as the intended state of a light).
+These amount of parameters and complexity can grow and change over the
+development cycle of the device. Every parameter needs to not only be available
+in the embedded device but also all the external interfaces as well.
+If this information is not coordinated it can lead to human error and extra
+development time. There are solutions available that helps with that, however,
+they typically don't operate under the asymmetric nature of embedded vs host
+computer capabilities or end of being very complex requiring large stacks in
+order to use.
+
+## Solution
+
+The MMM generates simple C code that allows both named parameter access via
+typedef structs and byte offset access. Decoding of these parameters are done
+on the host, taking advantage of asymmetric computational resources of host vs.
+device. The embedded device only needs to expose a way to read or write an
+offset and size.
+
+## Installation
+
 Stable versions can be installed with:
 ```
 pip install memory-map-manager
 ```
 
-## Install from source
-To install or update from sources checkout the repo and run:
-```
-python setup.py install --user -f
-```
+## Generating with the MMM
 
-# Usage
-
-Installing the package comes with a console command `generate_map`.
+Installing the package comes with a console command `mmm-gen`.
 
 ```
-generate_map --help
-usage: generate_map [-h] [--config-path CONFIG_PATH] [--output-config OUTPUT_CONFIG] [--output-dir OUTPUT_DIR] [--output-csv OUTPUT_CSV]
-                    [--reset-config] [--only-update-config] [--print-date] [--print-config]
-                    [--loglevel {debug,info,warning,error,fatal,critical}]
+usage: mmm-gen [-h] [--cfg-path CFG_PATH] [--clean]
+               [--loglevel {debug,info,warning,error,fatal,critical}]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --config-path CONFIG_PATH, -P CONFIG_PATH
-                        The path to the config file or directory
-  --output-config OUTPUT_CONFIG, -c OUTPUT_CONFIG
-                        The path and name of the output config file
-  --output-dir OUTPUT_DIR, -D OUTPUT_DIR
-                        The path for all generated output
-  --output-csv OUTPUT_CSV, -o OUTPUT_CSV
-                        The path for the csv memory map
-  --reset-config, -r    Do not copy previous non-generated mem map values
-  --only-update-config, -u
-                        Only updates config file without generating files
-  --print-date, -d      prints the date in all headers
-  --print-config, -p    Prints the config to stdout
+  --cfg-path CFG_PATH, -p CFG_PATH
+                        the path to the memory map manager configuration importer.
+  --clean, -C           clean the generated directories before generation. be careful!
   --loglevel {debug,info,warning,error,fatal,critical}
-                        Python logger log level, defaults to "info"
+                        python logger log level, defaults to "info"
 ```
 
-Typically one would have a config fitting the [schema](memory_map_manager/data/mem_map_schema.json) and generate .c and .h files from it.
+There are a number of examples available coming with the generation
+configurations and the map configurations.
 
-An [example](example_typedef.json) shows how to format and what the memory map will look like.
-Note that only the `metadata`, `typedef`, and `bitfields` must be populated as the `memory_map` can be populated based on that information.
-
-
-# Testing
-
-Procedure for changes to example_typedef.json (please verify first)
+To run the minimal example run:
 ```
-python3 -m memory_map_manager.code_gen -P example_typedef.json -c example_typedef.json -u
+mmm-gen -p examples/minimal/main.yaml
 ```
 
-To run the full test suite and linter use:
-```
-tox
-```
+This generates C files, csv files, and the configuration outputs.
 
-To run just the test
-```
-python setup.py pytest
-```
+## Writing a Custom Map
 
-Reset regression test
-```
-python3 setup.py test --addopts --regtest-reset
-```
+Along with the examples of maps there are schemas available that document the
+capabilities.
+
+There are two files that are needed:
+- a [generation configuration](memory_map_manager/data/mm_gen_cfg.json) that
+specifies generation information such as input configuration files and output directories. The default file is assumed to be `main.yaml`
+- a [map configuration](memory_map_manager/data/mm_map_cfg.json) that specifies
+the parameters in the map.

@@ -1,0 +1,16 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+#include <stdint.h>
+
+#include "mm_cc.h"
+
+/* bitfield typedefs {{ '*' * (line_width - 24) }}*/
+{%- for key, val in enums.items() %}
+{{ "\n/** @brief " + val.description + " */" if val.description}}
+typedef enum {
+{%- for elem in val.elements %}
+    {{ key }}_{{ elem.name }} = {{ elem.resolved_value }},{{ " /**< " + elem.description + " */" if elem.description }}
+{%- endfor %}
+} {{ key }};
+{% endfor %}
+{% include "header_end.h.j2" -%}

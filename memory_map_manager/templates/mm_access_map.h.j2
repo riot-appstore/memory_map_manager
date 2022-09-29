@@ -1,0 +1,10 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+#include <stddef.h>
+
+#include "mm_access_types.h"
+
+/* functions {{ '*' * (line_width - 16) }}*/
+const mm_access_t mm_access_{{ map_name|lower }}(ptrdiff_t idx);
+
+{% include "header_end.h.j2" -%}

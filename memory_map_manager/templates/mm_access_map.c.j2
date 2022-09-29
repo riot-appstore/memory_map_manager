@@ -1,0 +1,21 @@
+{% include "start_comments.h.j2" %}
+
+/* includes {{ '*' * (line_width - 15) }}*/
+#include <stddef.h>
+
+#include "mm_access_types.h"
+
+/* internal variables {{ '*' * (line_width - 25) }}*/
+static const mm_access_t _{{ map_name|upper }}_ACCESS[] =
+{
+{% for record in records -%}
+{%- if 'resolved_bit_offset' not in record or ('resolved_bit_offset' in record and record['resolved_bit_offset'] == 0) -%}
+{{ '{.data=%u}, ' | format(record.resolved_access) * record.resolved_type_size}} /* {{record.name}} */
+{% endif -%}
+{% endfor -%}
+};
+
+/* functions {{ '*' * (line_width - 16) }}*/
+const mm_access_t mm_access_{{ map_name|lower }}(ptrdiff_t idx) {
+    return _{{ map_name|upper }}_ACCESS[idx];
+}

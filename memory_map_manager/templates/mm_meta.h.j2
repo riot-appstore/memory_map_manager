@@ -1,0 +1,17 @@
+{% include "start_comments.h.j2" %}
+/* defines {{ '*' * (line_width - 14) }}*/
+
+#define MM_APP_NAME "{{ meta.app_name }}" /** Application name **/
+
+#define MM_VERSION_STR "{{ meta.version }}" /** Version string for the memory map interface **/
+#define MM_MAJOR_VERSION {{ meta.major_version }} /** Major version of the memory map interface **/
+#define MM_MINOR_VERSION {{ meta.minor_version }} /** Minor version of the memory map interface **/
+#define MM_PATCH_VERSION {{ meta.patch_version }} /** Patch version of the memory map interface **/
+{% for key, val in meta.resolved_permission_users.items() %}
+#define MM_USER_{{ key | upper }} {{ val }} /** {{ key }} user access **/
+{%- endfor %}
+
+#define MM_FW_HASH  "{{ meta.fw_hash }}" /** Hash for what effects the firmware */
+#define MM_HASH  "{{ meta.full_hash }}" /** Hash for the whole generated map */
+
+{% include "header_end.h.j2" -%}

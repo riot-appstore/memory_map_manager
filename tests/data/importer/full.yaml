@@ -1,0 +1,15 @@
+files:
+  - importer/cfg_basic.yaml
+  - importer/cfg_td.yaml
+
+base_dir: ../
+
+csv_dir: .
+
+c_dir: importer
+
+cfg_dir: /tmp
+
+prompt_conflicts: true
+
+overwrite_conflicts: false

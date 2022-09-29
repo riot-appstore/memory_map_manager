@@ -1,1 +1,2 @@
 include memory_map_manager/data/*
+include memory_map_manager/templates/*

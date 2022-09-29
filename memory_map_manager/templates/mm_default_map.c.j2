@@ -1,0 +1,27 @@
+{% include "start_comments.h.j2" %}
+
+/* includes {{ '*' * (line_width - 15) }}*/
+#include "mm_typedefs_{{ map_name|lower }}.h"
+#include "mm_default_{{ map_name|lower }}.h"
+
+/* functions {{ '*' * (line_width - 16) }}*/
+const void mm_defaults_init_{{ map_name|lower }}({{ map_name|lower }} *init) {
+{%- for record in map_data.compressed_records %}
+{%- if record['default'] %}
+{%- for info in record['compressed_info'] %}
+{%- if info['start'] %}
+{{ ' ' * 4 * loop.index}}for (unsigned {{ info['idx_name'] }}; {{ info['idx_name'] }} < {{info['size'] }}; {{ info['idx_name'] }}++) {
+{%- endif %}
+{%- endfor %}
+{{ ' ' * 4 * ((record.get('compressed_info', []) | length) + 1)}}init->{{ record.name }} = MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}};
+{%- for info in record['compressed_info'] %}{% if info['end'] %}
+{{ ' ' * 4 * (loop.length - loop.index + 1)}}}
+{%- endif %}{% endfor %}{%- endif %}
+{%- endfor %}
+
+{%- for record in map_data.records %}
+{%- if record.default_changed %}
+    init->{{ record.name }} = MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}};
+{%- endif %}
+{%- endfor %}
+}

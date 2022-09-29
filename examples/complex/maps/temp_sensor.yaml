@@ -1,0 +1,110 @@
+bitfields:
+  algo_t:
+    elements:
+      - name: speed
+        bits: 2
+        default: 1
+      - hold
+      - skip_avg
+
+enums:
+  cal_idx:
+    description: Calibration table lookups
+    elements:
+      - low_power
+      - high_accuracy
+      - low_cost
+  excite_errors:
+    bitwise: true
+    elements:
+      - broken_led
+      - incorrect_configuration
+      - settings_out_of_bounds
+
+typedefs:
+  measured_signal_t:
+    description: The measured signal used to determine the temperature.
+    elements:
+      - name: raw_data
+        array_size: 4
+      - name: measure_time
+        type: uint32_t
+        scaling_factor: 0.000001
+      - name: cal_table
+        type: uint8_t
+        array_size: 1024
+
+  controller_t:
+    description: The controller algorithm for setting power based on signal.
+    elements:
+      - name: algo
+        type: algo_t
+      - name: setpoint
+        type: uint16_t
+        scaling_factor: 0.001
+        max: 100
+        unit: percent
+      - name: target_setpoint
+        type: uint16_t
+        scaling_factor: 0.001
+        max: 100
+        unit: percent
+        write_permission:
+          - MANU
+          - ENG
+      - name: sensitivity
+        type: uint8_t
+      - name: boxcar_avg
+        type: uint8_t
+        write_permission:
+          - MANU
+          - ENG
+      - name: rolling_avg
+        type: uint8_t
+        write_permission:
+          - MANU
+          - ENG
+          - TECH
+      - name: measured_signal
+        type: measured_signal_t
+      - name: excite_signal
+        type: excite_signal_t
+
+  excite_signal_t:
+    description: Parameters for the output signal to excite the temperature
+      reading.
+    elements:
+      - name: output_power
+        type: uint16_t
+        scaling_factor: 100/0xFFFF
+        unit: percent
+      - name: output_time
+        type: uint16_t
+        scaling_factor: 0.000001
+        unit: seconds
+      - name: set_output_power
+        type: uint16_t
+        scaling_factor: 100/0xFFFF
+        unit: percent
+        write_permission:
+          - MANU
+          - ENG
+      - name: set_output_time
+        type: uint16_t
+        scaling_factor: 0.000001
+        unit: seconds
+        write_permission:
+          - MANU
+          - ENG
+      - name: cal_table
+        type: uint16_t
+        array_size: 32
+        write_permission: MANU
+      - name: usage
+        type: uint16_t
+        scaling_factor: 0.001
+        max: 100
+        unit: percent
+      - name: status
+        type: excite_errors
+

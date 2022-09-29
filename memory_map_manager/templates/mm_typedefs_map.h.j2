@@ -1,0 +1,16 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+#include "mm_cc.h"
+{%- if typedef.use_bitfields %}
+#include "mm_bitfields.h"
+{%- endif -%}{%- if typedef.use_enums %}
+#include "mm_enums.h"
+{%- endif -%}
+{%- for dep in typedef.deps %}
+#include "mm_typedefs_{{ dep }}.h"
+{%- endfor %}
+
+/* tyepdefs {{ '*' * (line_width - 18) }}*/{{ "\n/** @brief " + typedef.description + " */" if typedef.description}}
+typedef {{ name }} {{ map_name }};
+
+{% include "header_end.h.j2" -%}

@@ -1,0 +1,432 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "url_to_schema",
+  "title": "Memory Map Manager Input Configuration",
+  "description": "Schema for one or many files used for configuring the memory map.",
+  "additionalProperties": false,
+  "definitions": {
+    "common_elements": {
+      "type": ["object", "string"],
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+      "properties": {
+        "name": {
+          "description": "Name of the member.",
+          "type": "string",
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+        },
+        "description": {
+          "description": "Description of the structure member.",
+          "type": "string"
+        },
+        "default": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "description": "The default value to set. If null then it 0."
+        },
+        "min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Minimum value of the element"
+        },
+        "max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Maximum value of the element"
+        },
+        "scaling_factor": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Za-z_0-9(][A-Za-z0-9_ *\\-\\/+()]*$",
+          "description": "The scaling that can be applied the base number."
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The unit of the member."
+        }
+      }
+    },
+    "common_typedef": {
+      "type": ["object", "string"],
+      "properties":{
+        "description": {
+          "type": "string",
+          "description": "Description of the typedef."
+        },
+        "write_permission": {
+          "type": [
+            "array",
+            "string",
+            "null"
+          ],
+          "maxItems": 4,
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+            "type": "string"
+          },
+          "description": "The users from metadata.permission_users that can write this type. If empty will inherit from parent."
+        },
+        "read_permission": {
+          "type": [
+            "array",
+            "string",
+            "null"
+          ],
+          "maxItems": 4,
+          "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+          "items": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+            "type": "string"
+          },
+          "description": "The users from metadata.permission_users that can read this type. If empty will inherit from parent."
+        }
+      }
+    }
+  },
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "description": "Metadata for the maps of the application.",
+      "not": {
+        "required": [
+          "resolved_permission_users"
+        ]
+      },
+      "properties": {
+        "app_name": {
+          "type": "string",
+          "description": "The application name, should be unique.",
+          "pattern": "^[a-zA-Z]+[0-9a-z_A-Z]*$"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version string following simple version semantics. If missing than defaults to 0.0.0.",
+          "default": "0.0.0",
+          "pattern": "^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$"
+        },
+        "permission_users": {
+          "type": ["array", "null"],
+          "description": "List friendly user names that can be substituted for permissions number. This will resolve to a bitfield based enumeration.",
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          }
+        },
+        "default_type": {
+          "type": "string",
+          "description": "The default type to use when no type is provided.",
+          "format": "choices",
+          "default": "uint32_t",
+          "enum": [
+            "uint8_t",
+            "int8_t",
+            "uint16_t",
+            "int16_t",
+            "uint32_t",
+            "int32_t",
+            "uint64_t",
+            "int64_t",
+            "char",
+            "float",
+            "double"
+          ]
+        },
+        "struct_align": {
+          "type": ["integer", "null"],
+          "description": "The byte border for each complete typedef struct. If none, than no structure padding applied.",
+          "minimum": 1
+        },
+        "align": {
+          "type": ["integer", "null"],
+          "description": "The byte border structure member. If none, than no padding applied.",
+          "minimum": 1
+        }
+      }
+    },
+    "typedefs": {
+      "type": "object",
+      "description": "Collection of typedefs used for the memory map.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "allOf":[
+          {
+            "$ref":"#/definitions/common_typedef"
+          }
+        ],
+        "type": "object",
+        "properties": {
+
+          "total_size": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "description": "The total size of the typedef in bytes. It must be greater that the calucated size. If null then only use the calculated size."
+          },
+          "elements": {
+            "type": "array",
+            "description": "List of the members of the structure",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": [
+                "object",
+                "string"
+              ],
+              "default": "",
+              "allOf":[
+
+                {
+                  "$ref":"#/definitions/common_typedef"
+                },
+                {
+                  "$ref":"#/definitions/common_elements"
+                }
+              ],
+              "properties": {
+                "type": {
+                  "description": "The type of the structure member, either primary type or a type defined here. If null then it will be the default type.",
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+                },
+                "array_size": {
+                  "type": [
+                    "integer",
+                    "string",
+                    "null"
+                  ],
+                  "description": "Amount of elements in the array. If null then it is not an array.",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "bitfields": {
+      "type": "object",
+      "description": "Collection of bitfields used for the memory map.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "allOf":[
+          {
+            "$ref":"#/definitions/common_typedef"
+          }
+        ],
+        "properties": {
+          "type": {
+            "description": "The type of the full bitfield. Must be primary type or null. If null then it will default to the smallest size for the given bits.",
+            "type": [
+              "string",
+              "null"
+            ],
+
+            "default": null,
+            "format": "choices",
+            "enum": [
+              "uint8_t",
+              "int8_t",
+              "uint16_t",
+              "int16_t",
+              "uint32_t",
+              "int32_t",
+              "uint64_t",
+              "int64_t",
+              "char"
+            ]
+          },
+          "elements": {
+            "type": "array",
+            "description": "List of the bitfields of the bitfield type.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": ["string", "object"],
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+              "allOf":[
+                {
+                  "$ref":"#/definitions/common_elements"
+                }
+              ],
+              "properties": {
+                "bits": {
+                  "description": "Number of bits. Can be a string from defines.",
+                  "type": ["integer", "string"],
+                  "minimum": 1,
+                  "default": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overrides": {
+      "type": "object",
+      "description": "Override record properties based on record name.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_.\\]\\[]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "map": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "default": null,
+            "description": "Name of the map to use. If null, then it will use the default map."
+          }
+        }
+      }
+    },
+    "defines": {
+      "type": "object",
+      "description": "Defines that can be used both in code and evaluated as properties in structures.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": ["object", "integer", "string"],
+        "required": [
+          "value"
+        ],
+        "properties": {
+          "value": {
+            "type": [
+              "string",
+              "integer"
+            ],
+            "description": "The value of the define name. If a string there should be a way to eventually evaluated it to an integer."
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the the define."
+          }
+        }
+      }
+    },
+    "enums": {
+      "type": "object",
+      "description": "Collection of enumerations used for the memory map.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The type for the enumeration. Must be primary type or null. If null then the enumeration will use default (int).",
+            "type": [
+              "string",
+              "null"
+            ],
+
+            "default": null,
+            "format": "choices",
+            "enum": [
+              "uint8_t",
+              "int8_t",
+              "uint16_t",
+              "int16_t",
+              "uint32_t",
+              "int32_t",
+              "uint64_t",
+              "int64_t",
+              "char"
+            ]
+          },
+          "bitwise": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true and the enumeration is a list of strings then instead of counting 0,1,2,3 it counts bitwise, eg 1,2,4,8..."
+          },
+          "elements": {
+            "type": "array",
+            "description": "List of the enum names and optional properties.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": [
+                "object",
+                "string"
+              ],
+              "pattern": "^[A-Za-z_][A-Za-z0-9_]*$",
+              "properties": {
+                "name": {
+                  "description": "Name of the member.",
+                  "type": "string",
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+                },
+                "description": {
+                  "description": "Description of the structure member.",
+                  "type": "string"
+                },
+                "value": {
+                  "type": [
+                    "integer"
+                  ],
+                  "description": "The default value to set. If null then it 0."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "generated_maps": {
+      "type": "object",
+      "description": "The map or maps to generate.",
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The typedef of the map to generate."
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the map."
+          },
+          "default_map": {
+            "type": "boolean",
+            "description": "A flag to indicate this is the default map to use. Only one default map allowed."
+          }
+        }
+      }
+    }
+  }
+}

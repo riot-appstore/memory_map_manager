@@ -1,0 +1,20 @@
+metadata:
+  app_name: minimal
+
+typedefs:
+  type_1:
+    elements:
+      - name: record_1
+        array_size: 3
+        default: 1
+
+overrides:
+  record_1[0]:
+    default: 2
+  record_1[1]:
+    default: 3
+
+
+generated_maps:
+  map_1:
+    type: type_1

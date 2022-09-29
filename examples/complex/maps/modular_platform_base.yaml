@@ -1,0 +1,39 @@
+typedefs:
+  mp_dev_desc_t:
+    reference: dev_desc_t
+    elements:
+      - name: channels
+        default: VARIANT_CHANNELS
+        type: uint32_t
+
+  sensor_t:
+    elements:
+      - name: sen_data
+        description: The live sensor data.
+        type: sen_data_t
+      - name: dev_desc
+        description: The device description, only useful when plugged in.
+        type: dev_desc_t
+      - name: generic_status
+        type: uint32_t
+
+  map_t:
+    description: The device map.
+    read_permission:
+      - TECH
+      - ENG
+      - MANU
+    elements:
+      - name: dev_desc
+        type: mp_dev_desc_t
+      - name: sensor
+        array_size: VARIANT_CHANNELS
+        type: sensor_t
+
+
+generated_maps:
+  map:
+    default_map: True
+    type: map_t
+  com:
+    type: com_packet_t

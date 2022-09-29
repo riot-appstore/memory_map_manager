@@ -1,0 +1,4 @@
+defines:
+  VARIANT_CHANNELS:
+    value: 8
+    description: Amount of channels to use.

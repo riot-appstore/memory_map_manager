@@ -1,0 +1,17 @@
+{% include "start_comments.h.j2" %}
+#ifdef __linux__
+   #include <endian.h>
+#else
+   #include <machine/endian.h>
+#endif
+
+#define MM_PACKED_START _Pragma ("pack(1)")
+#define MM_PACKED_END   _Pragma ("pack()")
+#define MM_PACKED       __attribute__((packed))
+#define MM_ALIGNED(n)   __attribute__((aligned (n)))
+
+#if BYTE_ORDER == BIG_ENDIAN
+//#error The mmm only supports little endian
+#endif
+
+{% include "header_end.h.j2" -%}
