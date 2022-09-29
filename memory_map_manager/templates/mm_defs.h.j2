@@ -1,0 +1,7 @@
+{% include "start_comments.h.j2" %}
+/* defines {{ '*' * (line_width - 14) }}*/
+{%- for key, val in defs.items() %}
+#define MM_{{ key }} {{ val.value }} /** {{ val.resolved_value }}{{ ' - ' + val.description if val.description }} **/
+{%- endfor %}
+
+{% include "header_end.h.j2" -%}

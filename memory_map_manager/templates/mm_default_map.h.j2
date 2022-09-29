@@ -1,0 +1,24 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+{%- if use_defines %}
+#include "mm_defs.h"
+{% endif -%}
+#include "mm_typedefs_{{ map_name|lower }}.h"
+
+/* defines {{ '*' * (line_width - 14) }}*/
+{%- for record in map_data.compressed_records %}
+{%- if 'default' in record %}
+#define MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}} MM_{{ record.default }}
+{%- endif -%}
+{%- endfor %}
+
+{%- for record in map_data.records %}
+{%- if record.default_changed %}
+#define MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}}  MM_{{ record.default }}
+{%- endif %}
+{%- endfor %}
+
+/* functions {{ '*' * (line_width - 16) }}*/
+const void mm_defaults_init_{{ map_name|lower }}({{ map_name|lower }} *init);
+
+{% include "header_end.h.j2" -%}

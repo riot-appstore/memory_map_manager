@@ -1,0 +1,1970 @@
+{
+  "map_1": {
+    "records": [
+      {
+        "default": 1,
+        "map_offset": 0,
+        "name": "record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_default": 1,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "type": "uint32_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "default": 2,
+        "map_offset": 4,
+        "name": "record_2[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_default": 2,
+        "resolved_offset": 4,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "default": 2,
+        "map_offset": 6,
+        "name": "record_2[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_default": 2,
+        "resolved_offset": 4,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 8,
+        "name": "record_3[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 9,
+        "name": "record_3[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 10,
+        "name": "record_3[2]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 11,
+        "name": "record_4.field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 11,
+        "name": "record_4.field_2",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 1,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 11,
+        "name": "record_4.padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 2,
+        "resolved_bits": 6,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 12,
+        "name": "record_5[0].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 12,
+        "name": "record_5[0].field_2",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 1,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 12,
+        "name": "record_5[0].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 2,
+        "resolved_bits": 6,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 13,
+        "name": "record_6[0].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 13,
+        "name": "record_6[0].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 15,
+        "name": "record_6[1].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 15,
+        "name": "record_6[1].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 17,
+        "name": "record_6[2].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 17,
+        "name": "record_6[2].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 19,
+        "name": "record_7.record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 23,
+        "name": "record_8[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 27,
+        "name": "record_8[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 31,
+        "name": "record_8[2].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 35,
+        "name": "record_8[3].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 39,
+        "name": "record_9[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 43,
+        "name": "record_9[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 47,
+        "name": "record_9[2].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      }
+    ],
+    "type": "type_1"
+  },
+  "map_2": {
+    "records": [
+      {
+        "default": 1,
+        "map_offset": 0,
+        "name": "record_1[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_default": 1,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "type": "uint32_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "default": 2,
+        "map_offset": 4,
+        "name": "record_1[0].record_2[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_default": 2,
+        "resolved_offset": 4,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "default": 2,
+        "map_offset": 6,
+        "name": "record_1[0].record_2[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_default": 2,
+        "resolved_offset": 4,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 8,
+        "name": "record_1[0].record_3[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 9,
+        "name": "record_1[0].record_3[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 10,
+        "name": "record_1[0].record_3[2]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 11,
+        "name": "record_1[0].record_4.field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 11,
+        "name": "record_1[0].record_4.field_2",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 1,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 11,
+        "name": "record_1[0].record_4.padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 2,
+        "resolved_bits": 6,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 12,
+        "name": "record_1[0].record_5[0].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 12,
+        "name": "record_1[0].record_5[0].field_2",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 1,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 12,
+        "name": "record_1[0].record_5[0].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 2,
+        "resolved_bits": 6,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 13,
+        "name": "record_1[0].record_6[0].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 13,
+        "name": "record_1[0].record_6[0].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 15,
+        "name": "record_1[0].record_6[1].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 15,
+        "name": "record_1[0].record_6[1].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 17,
+        "name": "record_1[0].record_6[2].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 17,
+        "name": "record_1[0].record_6[2].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 19,
+        "name": "record_1[0].record_7.record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 23,
+        "name": "record_1[0].record_8[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 27,
+        "name": "record_1[0].record_8[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 31,
+        "name": "record_1[0].record_8[2].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 35,
+        "name": "record_1[0].record_8[3].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 39,
+        "name": "record_1[0].record_9[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 43,
+        "name": "record_1[0].record_9[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 47,
+        "name": "record_1[0].record_9[2].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "default": 1,
+        "map_offset": 51,
+        "name": "record_1[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_default": 1,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "type": "uint32_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "default": 2,
+        "map_offset": 55,
+        "name": "record_1[1].record_2[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_default": 2,
+        "resolved_offset": 4,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "default": 2,
+        "map_offset": 57,
+        "name": "record_1[1].record_2[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_default": 2,
+        "resolved_offset": 4,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 59,
+        "name": "record_1[1].record_3[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 60,
+        "name": "record_1[1].record_3[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": "def_1",
+        "default": "def_1",
+        "map_offset": 61,
+        "name": "record_1[1].record_3[2]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 3,
+        "resolved_default": 3,
+        "resolved_offset": 8,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 3,
+        "resolved_type": "uint8_t",
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "type": "uint8_t",
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 62,
+        "name": "record_1[1].record_4.field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 62,
+        "name": "record_1[1].record_4.field_2",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 1,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 62,
+        "name": "record_1[1].record_4.padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 2,
+        "resolved_bits": 6,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 63,
+        "name": "record_1[1].record_5[0].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 63,
+        "name": "record_1[1].record_5[0].field_2",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 1,
+        "resolved_bits": 1,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 63,
+        "name": "record_1[1].record_5[0].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 2,
+        "resolved_bits": 6,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 1,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 64,
+        "name": "record_1[1].record_6[0].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 64,
+        "name": "record_1[1].record_6[0].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 66,
+        "name": "record_1[1].record_6[1].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 66,
+        "name": "record_1[1].record_6[1].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "bits": 12,
+        "map_offset": 68,
+        "name": "record_1[1].record_6[2].field_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_bit_offset": 0,
+        "resolved_bits": 12,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "description": "padding bits",
+        "map_offset": 68,
+        "name": "record_1[1].record_6[2].padding",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "reserved": true,
+        "resolved_access": 0,
+        "resolved_bit_offset": 12,
+        "resolved_bits": 4,
+        "resolved_read_permission": 0,
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "use_bitfields": true,
+        "use_defines": true,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 70,
+        "name": "record_1[1].record_7.record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 74,
+        "name": "record_1[1].record_8[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 78,
+        "name": "record_1[1].record_8[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 82,
+        "name": "record_1[1].record_8[2].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 86,
+        "name": "record_1[1].record_8[3].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 90,
+        "name": "record_1[1].record_9[0].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 94,
+        "name": "record_1[1].record_9[1].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "map_offset": 98,
+        "name": "record_1[1].record_9[2].record_1",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint32_t",
+        "resolved_type_size": 4,
+        "resolved_write_permission": 0,
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      }
+    ],
+    "type": "type_3"
+  },
+  "map_3": {
+    "records": [
+      {
+        "array_size": 2,
+        "map_offset": 0,
+        "name": "record_1[0].record_1[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "map_offset": 2,
+        "name": "record_1[0].record_1[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "map_offset": 4,
+        "name": "record_1[1].record_1[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "map_offset": 6,
+        "name": "record_1[1].record_1[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "map_offset": 8,
+        "name": "record_1[2].record_1[0]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      },
+      {
+        "array_size": 2,
+        "map_offset": 10,
+        "name": "record_1[2].record_1[1]",
+        "read_permission": [
+          0
+        ],
+        "readable": false,
+        "resolved_access": 0,
+        "resolved_array_size": 2,
+        "resolved_offset": 0,
+        "resolved_read_permission": 0,
+        "resolved_total_size": 4,
+        "resolved_type": "uint16_t",
+        "resolved_type_size": 2,
+        "resolved_write_permission": 0,
+        "type": "uint16_t",
+        "use_bitfields": false,
+        "use_defines": false,
+        "use_enums": false,
+        "writable": false,
+        "write_permission": [
+          0
+        ]
+      }
+    ],
+    "type": "type_5"
+  }
+}

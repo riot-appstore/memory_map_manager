@@ -1,0 +1,25 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+#include <stdint.h>
+
+#include "mm_cc.h"
+
+/* typedefs {{ '*' * (line_width - 15) }}*/
+MM_PACKED_START
+/** @brief  System settings for the device */
+typedef union {
+    struct {
+        uint8_t readable: 1; /**< 0:cannot read - 1:readable */
+        uint8_t writable: 1; /**< 0:cannot write - 1:writable */
+        uint8_t users: 6; /**< bitwise user id */
+    };
+    uint8_t data;
+} mm_access_t;
+MM_PACKED_END
+
+/* defs {{ '*' * (line_width - 11) }}*/
+{%- for key, val in permission_users.items() %}
+#define MM_ACCESS_{{ key|upper }} {{val * 4}}
+{%- endfor %}
+
+{% include "header_end.h.j2" -%}

@@ -1,0 +1,4 @@
+files:
+  - importer/cfg_basic.yaml
+
+base_dir: ../

@@ -1,0 +1,18 @@
+# List of map configuration files
+files:
+  - metadata_base.yaml
+  - data_packet.yaml
+  - temp_sensor.yaml
+  - standalone.yaml
+
+# the base dir to use for all relative mappings
+base_dir: maps
+
+# The directory to generate the .c and .h files
+c_dir: /tmp/mmm/sa/c_files
+
+# The directory to generate all the csv files
+csv_dir: /tmp/mmm/sa/csv_files
+
+# The directory to generate the resolved config file
+cfg_dir: /tmp/mmm/sa/config

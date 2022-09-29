@@ -1,0 +1,24 @@
+files:
+  - adc.yaml
+  - dac.yaml
+  - gpio.yaml
+  - i2c.yaml
+  - map.yaml
+  - pwm.yaml
+  - rtc.yaml
+  - spi.yaml
+  - sys.yaml
+  - tmr.yaml
+  - uart.yaml
+
+base_dir: "."
+
+c_dir: /tmp/gen/c_files
+
+csv_dir: /tmp/gen/csv_files
+
+cfg_dir: /tmp/gen/config
+
+prompt_conflicts: true
+
+overwrite_conflicts: true

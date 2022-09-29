@@ -1,0 +1,21 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+source = memory_map_manager/
+
+[report]
+# A list of regular expressions. Any line that matches one of these regexes is excluded from being reported as missing
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:
+
+# (integer): the number of digits after the decimal point to display for reported coverage percentages.
+precision = 1
+
+
+[html]
+# (string, default "htmlcov"): where to write the HTML report files.
+directory = htmlcov

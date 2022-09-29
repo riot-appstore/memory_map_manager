@@ -1,0 +1,86 @@
+metadata:
+  app_name: simple_full
+  default_map: map_3
+  permission_users:
+    - user
+    - other
+
+typedefs:
+  type_1:
+    elements:
+      - name: record_1
+        type: uint32_t
+        default: 1
+        read_permission: user
+        write_permission: user
+      - name: record_2
+        type: uint16_t
+        array_size: 2
+        default: 2
+        read_permission: user
+      - name: record_3
+        type: uint8_t
+        array_size: def_1
+        default: def_1
+        write_permission: user
+      - name: record_4
+        type: bf_1
+      - name: record_5
+        type: bf_1
+        array_size: 1
+      - name: record_6
+        type: bf_2
+        array_size: def_1
+      - name: record_7
+        type: type_2
+      - name: record_8
+        type: type_2
+        array_size: 4
+      - name: record_9
+        type: type_2
+        array_size: def_1
+  type_2:
+    elements:
+      - record_1
+  type_3:
+    elements:
+      - name: record_1
+        type: type_1
+        array_size: 2
+  type_4:
+    elements:
+      - name: record_1
+        type: uint16_t
+        array_size: 2
+  type_5:
+    elements:
+      - name: record_1
+        type: type_4
+        array_size: 3
+
+bitfields:
+  bf_1:
+    elements:
+      - field_1
+      - field_2
+  bf_2:
+    elements:
+      - name: field_1
+        bits: 12
+
+enums:
+  enum_1:
+    elements:
+      - opt_1
+      - opt_2
+
+defines:
+  def_1: 3
+
+generated_maps:
+  map_1:
+    type: type_1
+  map_2:
+    type: type_3
+  map_3:
+    type: type_5

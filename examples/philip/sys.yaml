@@ -1,0 +1,64 @@
+bitfields:
+  sys_mode_t:
+    description: System mode settings
+    elements:
+      - name: init
+        description: 0:periph will initialize on execute - 1:periph initialized
+      - name: dut_rst
+        description: 1:put DUT in reset mode - 0:run DUT
+
+  sys_status_t:
+    description: System status
+    elements:
+      - name: update
+        description: 1:register configuration requires execution for changes - 0:nothing to update
+      - name: board
+        description: 1:board is a bluepill - 0:board is a nucleo-f103rb
+
+typedefs:
+  sys_t:
+    description: System settings for PHiLIP
+    elements:
+      - access: read-only
+        array_size: 12
+        description: Unique ID of the device
+        name: sn
+        type: uint8_t
+      - access: read-only
+        array_size: 4
+        description: Firmware revision
+        name: fw_rev
+        type: uint8_t
+        invalid: 0
+      - access: read-only
+        array_size: 4
+        description: Interface revision - This correlates to the version of the memory
+          map
+        name: if_rev
+        type: uint8_t
+      - access: read-only
+        description: Tick in ms - Updates with the sys tick register every few ms
+        name: tick
+        type: uint64_t
+        flag: VOLATILE
+      - access: read-only
+        description: time of build
+        name: build_time
+        type: timestamp_t
+        flag: DEVICE_SPECIFIC
+      - access: read-only
+        description: The philip device designator - A constant number to identify philip firmware
+        name: device_num
+        type: uint32_t
+        default: 17061
+        description: The frequency of the system clock in Hz
+        name: sys_clk
+        type: uint32_t
+      - access: read-only
+        description: Status of system
+        flag: DEVICE_SPECIFIC
+        name: status
+        type: sys_status_t
+      - description: Control register for device
+        name: mode
+        type: sys_mode_t

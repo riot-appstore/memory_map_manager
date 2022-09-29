@@ -1,0 +1,40 @@
+name: Run on Examples
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        configs:
+          - examples/minimal/main.yaml
+          - examples/complex/mp1.yaml
+          - examples/complex/mp2.yaml
+          - examples/complex/sa.yaml
+          - examples/complex/sensor.yaml
+          - examples/full/main.yaml
+          - examples/minimal/main.yaml
+          - examples/philip/main.yaml
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+    - name: Generate example
+      run: mmm-gen -p ${{ matrix.configs }}

@@ -1,0 +1,43 @@
+[
+  {
+    "name": "record_1",
+    "read_permission": [
+      15
+    ],
+    "resolved_access": 248,
+    "write_permission": [
+      8
+    ]
+  },
+  {
+    "name": "record_2",
+    "read_permission": [
+      "basic"
+    ],
+    "resolved_access": 18,
+    "write_permission": [
+      "advanced"
+    ]
+  },
+  {
+    "name": "record_3",
+    "read_permission": [
+      null
+    ],
+    "resolved_access": 6,
+    "write_permission": [
+      "advanced",
+      "god"
+    ]
+  },
+  {
+    "name": "record_4",
+    "read_permission": [
+      0
+    ],
+    "resolved_access": 0,
+    "write_permission": [
+      0
+    ]
+  }
+]

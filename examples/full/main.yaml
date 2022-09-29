@@ -1,0 +1,15 @@
+# List of map configuration files
+files:
+  - map_simple_full.yaml
+
+# the base dir to use for all relative mappings
+base_dir: .
+
+# The directory to generate the .c and .h files
+c_dir: /tmp/c_files
+
+# The directory to generate all the csv files
+csv_dir: /tmp/c_files/csv_files
+
+# The directory to generate the resolved config file
+cfg_dir: /tmp/c_files/config

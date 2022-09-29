@@ -1,0 +1,46 @@
+{
+    "$schema":"http://json-schema.org/draft-07/schema#",
+    "$id":"url_to_schema",
+    "title":"Memory Map Manager Configuration Importer",
+    "description":"Schema for the importing and generation parameters for the memory map generator.",
+    "properties":{
+        "files":{
+            "type":"array",
+            "description":"List of the files containing the memory map configuration.",
+            "items":{
+                "type": "string"
+                }
+        },
+        "base_dir":{
+            "type":"string",
+            "description":"The base directory for all relative files",
+            "default": "."
+        },
+        "c_dir":{
+            "type":"string",
+            "description":"The directory for all the c files to be generated, if missing then c files will not be generated."
+        },
+        "csv_dir":{
+            "type":"string",
+            "description":"The directory for all the c files to be generated, if missing then c files will not be generated."
+        },
+        "cfg_dir":{
+            "type":"string",
+            "description":"The directory for the generated configuration files."
+        },
+        "prompt_conflicts":{
+            "type":"boolean",
+            "description":"If true, the console will ask the user to verify if an overwrite should occur. If false, conflicts will raise an exception.",
+            "default": false
+        },
+        "overwrite_conflicts":{
+            "type":"boolean",
+            "description":"If true, any conflicts will be overridden by the newest data. If false, conflicts will raise an exception.",
+            "default": false
+        }
+    },
+    "required":[
+        "files"
+    ],
+    "additionalProperties": false
+}

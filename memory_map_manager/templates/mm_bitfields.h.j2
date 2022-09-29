@@ -1,0 +1,21 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+#include <stdint.h>
+
+#include "mm_cc.h"
+
+/* bitfield typedefs {{ '*' * (line_width - 24) }}*/
+{%- for key, val in bitfields.items() %}
+MM_PACKED_START
+{{ "/** @brief " + val.description + " */" if val.description}}
+typedef union {
+    struct {
+{%- for elem in val.elements %}
+        {{ val.resolved_type }} {{ elem.name }}: {{ elem.resolved_bits }}; {{ "/**< " + elem.description + " */" if elem.description }}
+{%- endfor %}
+    };
+    {{val.resolved_type}} data; /**< Full bitfield data */
+} {{ key }};
+MM_PACKED_END
+{% endfor %}
+{% include "header_end.h.j2" -%}

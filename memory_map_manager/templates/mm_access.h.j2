@@ -1,0 +1,7 @@
+{% include "start_comments.h.j2" %}
+/* includes {{ '*' * (line_width - 15) }}*/
+{% for mname in map_names -%}
+#include "mm_access_{{ mname | lower}}.h"
+
+{% endfor -%}
+{%- include "header_end.h.j2" %}

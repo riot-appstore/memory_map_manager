@@ -1,0 +1,10 @@
+files:
+  - my_minimal_map.yaml
+
+base_dir: "."
+
+c_dir: c_files
+
+csv_dir: /tmp/gen/csv_files
+
+cfg_dir: /tmp/gen/config
