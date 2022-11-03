@@ -162,7 +162,7 @@ extern "C"
 #include "mm_cc.h"
 #include "mm_typedefs_type_1.h"
 
-/* tyepdefs ***************************************************************/
+/* tyepdefs ******************************************************************/
 MM_PACKED_START
 typedef union {
     struct {
@@ -200,7 +200,7 @@ extern "C"
 #include "mm_typedefs_type_1.h"
 #include "mm_typedefs_type_1.h"
 
-/* tyepdefs ***************************************************************/
+/* tyepdefs ******************************************************************/
 typedef type_1 map_1;
 
 #ifdef __cplusplus

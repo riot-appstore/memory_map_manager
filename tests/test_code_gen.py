@@ -20,7 +20,7 @@ def test_cli_minimal(script_runner):
     ret = script_runner.run('mmm-gen', '-p', 'examples/minimal/main.yaml')
     assert ret.success
     assert 'SUCCESS' in ret.stdout
-    ret = script_runner.run('mmm-gen', '-p', 'examples/minimal/main.yaml')
+    ret = script_runner.run('mmm-gen', '-p', 'examples/minimal/all_outputs.yaml')
     assert ret.success
     assert 'SUCCESS' in ret.stdout
     ret = script_runner.run('mmm-gen', '-p', 'examples/minimal/main.yaml', '-C')

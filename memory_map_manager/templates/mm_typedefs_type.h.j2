@@ -14,7 +14,7 @@
 #include "mm_typedefs_{{ dep }}.h"
 {%- endfor %}
 
-/* tyepdefs {{ '*' * (line_width - 18) }}*/
+/* tyepdefs {{ '*' * (line_width - 15) }}*/
 MM_PACKED_START{{ "\n/** @brief " + typedef.description + " */" if typedef.description}}
 typedef union {
     struct {
