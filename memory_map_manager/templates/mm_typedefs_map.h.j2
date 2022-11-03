@@ -10,7 +10,7 @@
 #include "mm_typedefs_{{ dep }}.h"
 {%- endfor %}
 
-/* tyepdefs {{ '*' * (line_width - 18) }}*/{{ "\n/** @brief " + typedef.description + " */" if typedef.description}}
+/* tyepdefs {{ '*' * (line_width - 15) }}*/{{ "\n/** @brief " + typedef.description + " */" if typedef.description}}
 typedef {{ name }} {{ map_name }};
 
 {% include "header_end.h.j2" -%}

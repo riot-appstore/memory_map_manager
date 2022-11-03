@@ -20,7 +20,7 @@ extern "C"
 #include "mm_cc.h"
 #include "mm_typedefs_type_1.h"
 
-/* tyepdefs ***************************************************************/
+/* tyepdefs ******************************************************************/
 typedef type_1 map_1;
 
 #ifdef __cplusplus

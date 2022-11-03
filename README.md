@@ -27,6 +27,8 @@ offset and size.
 
 ## Installation
 
+_As this is a "console application" one can use a `venv` or `pipx` instead of pip._
+
 Stable versions can be installed with:
 ```
 pip install memory-map-manager

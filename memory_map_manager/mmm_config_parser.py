@@ -641,6 +641,7 @@ class MMMConfigParser():
         known_types = list(self.PRIMARIES.keys())
         kbfe = list(self._bfs.keys())
         kbfe.extend(self._enums.keys())
+        unresolved_types = []
         while True:
             type_count = len(known_types)
             finished = True
@@ -652,17 +653,22 @@ class MMMConfigParser():
                         r_type = ele.get('type', self.default_type)
                         if r_type not in known_types and r_type not in kbfe:
                             finished = False
+                            unresolved_types.append(r_type)
                             break
                     else:
                         known_types.append(td_name)
+                        if td_name in unresolved_types:
+                            unresolved_types.remove(td_name)
 
             if finished:
                 break
             if type_count == len(known_types):
-                missing_deps = set(typedefs.keys()) - set(known_types)
-                raise RecursionError(f'Cannot resolve {missing_deps} types '
+                unresolved_types = list(set(unresolved_types))
+                missing_deps = list(set(typedefs.keys()) - set(known_types))
+                raise RecursionError(f'Cannot resolve {missing_deps} typedefs '
                                      'due to missing definition/circular '
-                                     'dependency')
+                                     f'dependency/typo. {unresolved_types} '
+                                     'types are not resolved.')
         return [x for x in known_types if x not in self.PRIMARIES]
 
     def _calc_rtype(self, bit_total, r_type):
