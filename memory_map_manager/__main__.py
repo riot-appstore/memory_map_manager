@@ -42,7 +42,7 @@ def main():
 
     parser.add_argument("--clean", "-C", action="store_true",
                         help='clean the generated directories before '
-                             'generation. be careful!')
+                             'generation. Be careful!')
 
     parser.add_argument('--loglevel', choices=log_levels, default='info',
                         help='python logger log level, defaults to "info"')
