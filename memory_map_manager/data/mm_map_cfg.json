@@ -179,7 +179,7 @@
               "null"
             ],
             "minimum": 1,
-            "description": "The total size of the typedef in bytes. It must be greater that the calucated size. If null then only use the calculated size."
+            "description": "The total size of the typedef in bytes. It must be greater that the calculated size. If null then only use the calculated size."
           },
           "elements": {
             "type": "array",
