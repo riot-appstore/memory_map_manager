@@ -8,13 +8,13 @@
 /* defines {{ '*' * (line_width - 14) }}*/
 {%- for record in map_data.compressed_records %}
 {%- if 'default' in record %}
-#define MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}} MM_{{ record.default }}
+#define MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}} {% if record.default is not number -%}MM_{%- endif -%}{{ record.default }}
 {%- endif -%}
 {%- endfor %}
 
 {%- for record in map_data.records %}
 {%- if record.default_changed %}
-#define MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}}  MM_{{ record.default }}
+#define MM_DEFAULT_{{ map_name|upper }}_{{ record.name | upper | replace("[", "_") | replace("]", "") | replace(".", "_")}} {% if record.default is not number -%}MM_{%- endif -%}{{ record.default }}
 {%- endif %}
 {%- endfor %}
 

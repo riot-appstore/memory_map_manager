@@ -9,9 +9,8 @@ MM_PACKED_START
 /** @brief  System settings for the device */
 typedef union {
     struct {
-        uint8_t readable: 1; /**< 0:cannot read - 1:readable */
-        uint8_t writable: 1; /**< 0:cannot write - 1:writable */
-        uint8_t users: 6; /**< bitwise user id */
+        uint8_t write_permission: 4; /**< bitmasked permission users for writes */
+        uint8_t read_permission: 4; /**< bitmasked permission users for reads */
     };
     uint8_t data;
 } mm_access_t;
@@ -19,7 +18,7 @@ MM_PACKED_END
 
 /* defs {{ '*' * (line_width - 11) }}*/
 {%- for key, val in permission_users.items() %}
-#define MM_ACCESS_{{ key|upper }} {{val * 4}}
+#define MM_ACCESS_{{ key|upper }} {{val}}
 {%- endfor %}
 
 {% include "header_end.h.j2" -%}

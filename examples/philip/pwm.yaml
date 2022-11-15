@@ -1,7 +1,7 @@
 typedefs:
   pwm_t:
     description: Controls and calculates PWM values
-    type_size: 32
+    total_size: 32
     elements:
       - description: basic mode for pwm settings
         name: mode
@@ -24,3 +24,7 @@ typedefs:
         description: Settable low time in sys clock ticks
         name: l_ticks
         type: uint32_t
+
+overrides:
+  pwm.dut_pwm.level:
+    flag: VOLATILE

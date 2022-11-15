@@ -34,7 +34,7 @@ bitfields:
   gpio_status_t:
     description: IO pin status
     flag: VOLATILE
-    access: read-only
+    write_permission: null
     elements:
       - description: The io level of the pin - 0:low - 1:high
         name: level
@@ -49,4 +49,4 @@ typedefs:
       - description: The status of the GPIO
         name: status
         type: gpio_status_t
-    type_size: 4
+    total_size: 4

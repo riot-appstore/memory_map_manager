@@ -5,28 +5,28 @@ typedefs:
       - description: basic mode for rtc settings
         name: mode
         type: basic_mode_t
-      - access: read-only
+      - write_permission: null
         description: Seconds of rtc
         flag: VOLATILE
         max: 59
         min: 0
         name: second
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Minutes of rtc
         flag: VOLATILE
         max: 59
         min: 0
         name: minute
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Hours of rtc
         flag: VOLATILE
         max: 23
         min: 0
         name: hour
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Days of rtc
         flag: VOLATILE
         name: day
@@ -49,4 +49,4 @@ typedefs:
       - description: Days to set of rtc
         name: set_day
         type: uint16_t
-    type_size: 16
+    total_size: 16

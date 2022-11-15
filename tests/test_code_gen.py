@@ -15,6 +15,21 @@ def rm_r(path):
         os.remove(path)
 
 
+def test_cli_example_complex(script_runner):
+    ret = script_runner.run('mmm-gen', '-p', 'examples/complex/mp1.yaml')
+    assert ret.success
+    assert 'SUCCESS' in ret.stdout
+    ret = script_runner.run('mmm-gen', '-p', 'examples/complex/mp2.yaml')
+    assert ret.success
+    assert 'SUCCESS' in ret.stdout
+    ret = script_runner.run('mmm-gen', '-p', 'examples/complex/sa.yaml')
+    assert ret.success
+    assert 'SUCCESS' in ret.stdout
+    ret = script_runner.run('mmm-gen', '-p', 'examples/complex/sensor.yaml')
+    assert ret.success
+    assert 'SUCCESS' in ret.stdout
+
+
 def test_cli_minimal(script_runner):
     rm_r('/tmp/gen')
     ret = script_runner.run('mmm-gen', '-p', 'examples/minimal/main.yaml')
@@ -24,6 +39,18 @@ def test_cli_minimal(script_runner):
     assert ret.success
     assert 'SUCCESS' in ret.stdout
     ret = script_runner.run('mmm-gen', '-p', 'examples/minimal/main.yaml', '-C')
+    assert ret.success
+    assert 'SUCCESS' in ret.stdout
+
+
+def test_cli_example_full(script_runner):
+    ret = script_runner.run('mmm-gen', '-p', 'examples/full/main.yaml')
+    assert ret.success
+    assert 'SUCCESS' in ret.stdout
+
+
+def test_cli_example_philip(script_runner):
+    ret = script_runner.run('mmm-gen', '-p', 'examples/philip/main.yaml')
     assert ret.success
     assert 'SUCCESS' in ret.stdout
 

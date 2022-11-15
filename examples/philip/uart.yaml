@@ -22,7 +22,7 @@ bitfields:
 
   uart_status_t:
     description: UART status
-    access: read-only
+    write_permission: null
     elements:
       - description: CTS pin state
         name: cts
@@ -38,7 +38,7 @@ bitfields:
 typedefs:
   uart_t:
     description: Controls and provides information for the uart
-    type_size: 16
+    total_size: 16
     elements:
       - description: UART mode register
         name: mode
@@ -54,15 +54,15 @@ typedefs:
       - description: Baudrate
         name: baud
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Masks the data coming in if 7 bit mode
         name: mask_msb
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Number of received bytes
         name: rx_count
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: Number of transmitted bytes
         name: tx_count
         type: uint16_t
@@ -70,3 +70,9 @@ typedefs:
         name: status
         type: uart_status_t
         flag: VOLATILE
+
+overrides:
+  uart.dut_cts.level:
+    flag: VOLATILE
+  uart.dut_rts.level:
+    flag: VOLATILE
