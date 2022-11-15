@@ -1,6 +1,6 @@
 bitfields:
   spi_status_t:
-    access: read-only
+    write_permission: null
     description: SPI status
     elements:
       - description: Busy flag
@@ -43,7 +43,6 @@ bitfields:
 typedefs:
   spi_t:
     description: Controls and provides information for the spi
-    type_size: 32
     elements:
       - description: Specific spi modes
         name: mode
@@ -59,39 +58,43 @@ typedefs:
         type: basic_gpio_t
       - name: dut_nss
         type: basic_gpio_t
-      - access: read-only
+      - write_permission: null
         description: Current state of the spi bus - 0:initialized - 1:NSS pin just lowered - 2:writing to reg - 3:reading reg - 4:transferring data - 5:NSS up and finished
         name: state
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: current index of reg pointer
         name: reg_index
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: start index of reg pointer
         name: start_reg_index
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: Last read frame byte count
         name: r_count
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Last write frame byte count
         name: w_count
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: 'The amount of bytes in the last transfer '
         name: transfer_count
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Ticks per frame
         name: frame_ticks
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Ticks per byte
         name: byte_ticks
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Holder for previous byte ticks
         name: prev_ticks
         type: uint32_t
+      - name: sm_buf
+        description: Buffer for captured timestamps for speed measurement
+        type: uint32_t
+        array_size: 64

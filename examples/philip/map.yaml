@@ -7,23 +7,6 @@ metadata:
     - interface
     - peripheral
 
-enums:
-  enu1:
-    elements:
-      - o1
-      - o2
-  enu2:
-    type: uint8_t
-    bitwise: true
-    elements:
-      - name: t1
-      - t2
-      - t5
-      - name: t3
-        value: 99
-        description: TEST
-
-
 bitfields:
 
   basic_mode_t:
@@ -39,10 +22,9 @@ typedefs:
 
   timestamp_t:
     description: Time and date
-    access: read-only
+    write_permission: null
+    total_size: 8
     elements:
-      - name: test
-        type: enu1
       - description: The seconds in decimal
         name: second
         type: uint8_t
@@ -67,7 +49,7 @@ typedefs:
 
   trace_t:
     description: Saved timestamps and events
-    access: read-only
+    write_permission: null
     elements:
       - description: Index of the current trace
         name: index
@@ -93,10 +75,12 @@ typedefs:
 
   map_t:
     description: The memory map
+    write_permission:
+      - interface
     elements:
-      - permission:
-          - interface
-          - peripheral
+      - write_permission:
+        - interface
+        - peripheral
         array_size: 256
         description: Writable registers for user testing - Starts at 0 and increases 1 each register by default
         name: user_reg
@@ -134,13 +118,6 @@ typedefs:
       - description: Saved timestamps and events
         name: trace
         type: trace_t
-      - type: enu1
-        name: enu1
-      - type: enu2
-        name: enu2
-        array_size: 2
-    type_name: map_t
-    type_size: 2048
     access: read-write
     permission: interface
 
@@ -162,7 +139,7 @@ overrides:
 
 
 generated_maps:
-  map_t:
+  philip_map:
     type: map_t
 
 

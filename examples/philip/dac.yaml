@@ -11,4 +11,8 @@ typedefs:
         description: The percent/100 of output level
         name: level
         type: uint16_t
-    type_size: 16
+    total_size: 16
+
+overrides:
+  dac.dut_dac.level:
+    flag: VOLATILE

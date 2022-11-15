@@ -22,7 +22,7 @@ bitfields:
 
   i2c_status_t:
     description: I2C status
-    access: read-only
+    write_permission: null
     elements:
       - description: 'Overrun/Underrun: Request for new byte when not ready'
         name: ovr
@@ -30,17 +30,20 @@ bitfields:
         name: af
       - description: 'Bus error:  Non-valid position during a byte transfer'
         name: berr
+        flag: VOLATILE
       - description: General call address received
         name: gencall
       - description: i2c bus is BUSY
         name: busy
+        flag: VOLATILE
+
       - description: Repeated start detected
         name: rsr
 
 typedefs:
   i2c_t:
     description: System settings for the device
-    type_size: 64
+    total_size: 64
     elements:
       - description: Specific modes for I2C
         name: mode
@@ -70,44 +73,50 @@ typedefs:
         invalid: 125
         max: 124
         min: 8
-      - access: read-only
+      - write_permission: null
         description: Current state of i2c frame - 0:initialized - 1:reading data - 2-write address received - 3-1st reg byte received - 4-writing data - 5-NACK - 6-stopped
         name: state
         flag: VOLATILE
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: Current index of reg pointer
         name: reg_index
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: Start index of reg pointer
         name: start_reg_index
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         description: Last read frame byte count - only in reg if_type 0
         name: r_count
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Last write frame byte count - only in reg if_type 0
         name: w_count
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Ticks for read byte - only in reg if_type 0
         name: r_ticks
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Ticks for write byte
         name: w_ticks
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Holder when the start occurred
         name: s_ticks
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Ticks for full read frame after the address is acked
         name: f_r_ticks
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Ticks for full write frame
         name: f_w_ticks
         type: uint32_t
+
+overrides:
+  i2c.dut_sda.level:
+    flag: VOLATILE
+  i2c.dut_scl.level:
+    flag: VOLATILE

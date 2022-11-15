@@ -14,47 +14,50 @@ bitfields:
         description: 1:register configuration requires execution for changes - 0:nothing to update
       - name: board
         description: 1:board is a bluepill - 0:board is a nucleo-f103rb
+        flag: DEVICE_SPECIFIC
 
 typedefs:
   sys_t:
     description: System settings for PHiLIP
     elements:
-      - access: read-only
+      - write_permission: null
         array_size: 12
         description: Unique ID of the device
         name: sn
         type: uint8_t
-      - access: read-only
+        flag: DEVICE_SPECIFIC
+      - write_permission: null
         array_size: 4
         description: Firmware revision
         name: fw_rev
         type: uint8_t
         invalid: 0
-      - access: read-only
+      - write_permission: null
         array_size: 4
         description: Interface revision - This correlates to the version of the memory
           map
         name: if_rev
         type: uint8_t
-      - access: read-only
+      - write_permission: null
         description: Tick in ms - Updates with the sys tick register every few ms
         name: tick
         type: uint64_t
         flag: VOLATILE
-      - access: read-only
+      - write_permission: null
         description: time of build
         name: build_time
         type: timestamp_t
         flag: DEVICE_SPECIFIC
-      - access: read-only
+      - write_permission: null
         description: The philip device designator - A constant number to identify philip firmware
         name: device_num
         type: uint32_t
         default: 17061
         description: The frequency of the system clock in Hz
+      - write_permission: null
         name: sys_clk
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Status of system
         flag: DEVICE_SPECIFIC
         name: status

@@ -19,17 +19,17 @@ typedefs:
         type: tmr_mode_t
       - name: dut_ic
         type: basic_gpio_t
-      - access: read-only
+      - write_permission: null
         description: The minimum amount of time to wait before triggering another event
           in ns
         name: min_holdoff
         type: uint16_t
-      - access: read-only
+      - write_permission: null
         default: 4294967295
         description: Minimum tick difference
         name: min_tick
         type: uint32_t
-      - access: read-only
+      - write_permission: null
         description: Maximum tick difference
         name: max_tick
         type: uint32_t
